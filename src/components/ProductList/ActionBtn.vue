@@ -1,0 +1,50 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue';
+
+import { useWishList } from '@/composables/useWishList';
+import { useCart } from '@/composables/useCart';
+
+const props = withDefaults(defineProps<{ id: string }>(), {
+	id: '',
+});
+
+const { wishList, addToWishList, removeWishList } = useWishList();
+const isInWishList = computed<boolean>(() => wishList.value.includes(props.id));
+const heart = computed<string[]>(() => isInWishList.value ? ['fas', 'heart'] : ['far', 'heart']);
+
+const { addToCart } = useCart();
+
+const loading = ref(false);
+const clickCart = async ({ qty, product_id }: { qty: number, product_id: string }) => {
+	loading.value = true;
+	await addToCart({ qty, product_id, mode: 'add' });
+	loading.value = false;
+};
+</script>
+
+<template>
+	<div class="productList_actionBtn">
+		<button
+			:class="{ 'active': isInWishList }"
+			type="button"
+			@click.stop="isInWishList ? removeWishList(props.id) : addToWishList(props.id)"
+		>
+			<font-awesome-icon :icon="heart" />
+		</button>
+
+		<button
+			:disabled="loading"
+			type="button"
+			@click.stop="clickCart({ qty: 1, product_id: props.id });"
+		>
+			<font-awesome-icon
+				v-if="loading"
+				:icon="['fas', 'spinner']" spin-pulse
+			/>
+			<font-awesome-icon
+				v-else
+				:icon="['fas', 'basket-shopping']"
+			/>
+		</button>
+	</div>
+</template>

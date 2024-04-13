@@ -1,0 +1,21 @@
+$media-s: 480px;
+$media-m: 768px;
+$media-l: 1024px;
+$media-xl: 1200px;
+$media-map: (
+    s: $media-s,
+    m: $media-m,
+    l: $media-l,
+    xl: $media-xl,
+);
+
+// rwd max-width
+@mixin rwd($device) {
+  @each $name, $media in $media-map {
+      @if $device == $name {
+          @media only screen and (max-width: $media) {
+              @content
+          }
+      }
+  }
+};

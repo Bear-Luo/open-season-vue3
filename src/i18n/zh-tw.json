@@ -1,0 +1,74 @@
+{
+	"common": {
+		"price": "$ {price}",
+		"dollar": "$ {price} 元",
+		"originalPrice": "原價：$ {price}",
+		"specialPrice": "優惠：$ {price}",
+		"wishList": "關注商品"
+	},
+	"header": {
+		"about": "關於我們",
+		"news": "角獵記事",
+		"productList": "手作產品"
+	},
+	"footer": {
+		"text": "Copyright © 2020 - Open Seasn<br>本網站為學習用途 | 感謝角獵咖啡素材提供"
+	},
+	"home": {
+		"goShopping": "來去購物 <span>→</span>",
+		"about": "About",
+		"aboutText": "新鮮簡單的食材<br>一顆對於料理誠摯的心<br>做出每一份好吃的料理<br>這份真誠給每一位來到角獵咖啡的您",
+		"aboutAddress": "臺東市開封街592巷18號",
+		"aboutTel": "08-934-5005",
+		"aboutTime": "9:00am - 9:00pm | 週四公休",
+		"prev": "<span>←</span> 上一頁",
+		"next": "下一頁 <span>→</span>"
+	},
+	"productList": {
+		"all": "全部",
+		"searchPlaceHolder": "請輸入關鍵字",
+		"sortPrice": "價錢"
+	},
+	"productPage": {
+		"qa": "常見問答",
+		"similar": "相似商品",
+		"qa-1": "<div class=\"productPage_qa_title\">商品寄出時間？</div>商品如有現貨則當日寄出，如沒有現貨，因商品需要製作時間，待3-7天的製作完成後會寄出。<br>有急需的客戶，可來電與店面人員詢問是否能提早寄送。\n",
+		"qa-2": "<div class=\"productPage_qa_title\">商品保存方式及保存期限？</div>咖啡：於包裝印有保存期限與保存方式。<br>果醬：於包裝印有保存期限與保存方式，開封後請冷藏。<br>水果軟糖：當日製作完成即冷藏寄出，冷藏可放1禮拜，冷凍可放2禮拜，冷凍後建議取出靜放至稍軟再食用。<br>麵包：當日製作完成即冷藏寄出，冷藏可放1禮拜，冷凍可放2禮拜。烤麵包前建議於麵包表面噴點水可避免變太乾。\n",
+		"qa-3": "<div class=\"productPage_qa_title\">退換貨須知</div>由於考量食品衛生安全，除了商品本身瑕疵、損壞、作業疏失或運送過程而造成的損毀，才能申請退換貨。一經個人拆封、食用、失溫及保存不良等情形而導致商品變質，恕無法處理您的退換貨申請。<br>退貨時請保持包裝完整寄回！<br>訂購前，請詳閱商品頁面說明，或來電與人員確認細項後，再行下單喔！\n",
+		"addToWishList": "加入關注",
+		"addToCart": "加入購物車",
+		"select": "選購 {value} 盒"
+	},
+	"cart": {
+		"steps": "輸入寄送資訊 | 確認繳費 | 訂單完成",
+		"total": "總計",
+		"copyCoupon": "您有一張可以使用的優惠券",
+		"copiedCoupon": "已複製優惠券",
+		"useCoupon": "套用優惠券",
+		"continueShopping": "繼續購物",
+		"submitForm": "送出訂單",
+		"goToPay": "確認付款",
+		"orderDetail": "訂單明細",
+		"recipientInfo": "收件人資訊",
+		"commodityName": "品名",
+		"amount": "數量",
+		"uniPrice": "單價",
+		"paymentStatus": "付款狀態",
+		"isPaid": "付款完成",
+		"isPaidMsg": "訂單已完成付款，|回購物頁面<i>→</i>",
+		"nothingInCart": "您尚未選購任何商品唷～",
+		"goShopping": "快去購物吧<i>→</i>"
+	},
+	"form": {
+		"email": "Email",
+		"name": "姓名",
+		"tel": "收件人電話",
+		"address": "收件人地址",
+		"message": "留言",
+		"pleaseFillIn": "請輸入"
+	},
+	"validate": {
+		"required": "必填",
+		"email": "您的 Email 格式不對"
+ 	}
+}

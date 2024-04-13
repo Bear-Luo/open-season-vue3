@@ -1,0 +1,336 @@
+body {
+	font-family: Helvetica, Arial, PingFang TC, Microsoft JhengHei, sans-serif;
+	font-size: 1rem;
+	background-color: $bg-main;
+	color: $text-content;
+}
+
+.page-wrap {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.container {
+	max-width: 960px;
+	margin: 0 auto;
+
+	@include rwd(m) {
+		width: 100%;
+	}
+}
+
+.price {
+	&-origin {
+		text-decoration: line-through;
+		color: rgba($color: #000, $alpha: .5);
+	}
+
+	&-special {
+		color: $danger;
+	}
+}
+
+.shadow {
+	box-shadow: 0 .125rem .25rem rgba($color: #000, $alpha: .25);
+}
+
+.fade {
+	transition: all .3s linear;
+
+	&:not(.show) {
+		opacity: 0;
+	}
+
+	&.show {
+		opacity: 1;
+	}
+}
+
+.card {
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 5px;
+
+	&_list {
+		li {
+			display: flex;
+			padding: .75rem 0;
+			align-items: center;
+
+			+li {
+				border-top: 1px solid #dee2e6;
+			}
+
+			>*:first-child {
+				~* {
+					margin-left: .75rem;
+				}
+			}
+		}
+
+		&_img {
+			display: block;
+			width: 90px;
+			height: 70px;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+
+		&_link {
+			display: flex;
+			align-items: center;
+
+			a {
+				color: $text-content;
+	
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		&_btnCrosses {
+			color: silver;
+			font-size: .875rem;
+			background-color: transparent;
+			border: none;
+
+			&::before {
+				display: block;
+				content: "╳";
+			}
+
+			&:hover {
+				color: $info;
+			}
+		}
+	}
+
+	&_table {
+		border: 0;
+		width: 100%;
+		text-align: left;
+		margin-bottom: 1rem;
+
+		thead {
+			border-bottom: 2px solid #dee2e6;
+
+			th {
+				line-height: 1.5;
+			}
+		}
+
+		tr + tr {
+			border-top: 1px solid #dee2e6;
+		}
+
+		td, th {
+			padding: .75rem;
+		}
+
+		th {
+			font-weight: bold;
+			color: $text-strong;
+		}
+	}
+
+	&_title {
+		font-size: 1.25rem;
+		display: flex;
+		margin-bottom: .5rem;
+		align-items: center;
+		color: $text-strong;
+		font-weight: 500;
+
+		&::before {
+			display: block;
+			content: "";
+			background-color: $danger;
+			width: 4px;
+			height: 24px;
+			border-radius: 2px;
+			margin-right: 10px;
+		}
+	}
+
+	+div.card_actionBlock--out {
+		text-align: right;
+		padding: 1rem 0 0;
+
+		button {
+			margin-left: 10px;
+		}
+	}
+}
+
+// 表單樣式
+label {
+	display: inline-block;
+	padding-bottom: .5rem;
+}
+select, input, textarea {
+	font-size: 1rem;
+	padding: 10px;
+	color: #495057;
+	border: 1px solid #ced4da;
+	border-radius: 5px;
+	transition: border .25s ease;
+	box-sizing: border-box;
+
+	&:focus {
+		outline: 0;
+		border-color: #ffe187;
+		box-shadow: 0 0 0 .2rem rgba(255,193,7,.25);
+		transition: border .35s ease;
+	}
+
+	&.form-danger {
+		border-color: $danger;
+
+		&:focus {
+			border-color: $danger;
+			box-shadow: 0 0 0 .2rem rgba($color: $danger, $alpha: .25);
+		}
+	}
+}
+.form {
+	&_group {
+		padding-bottom: 1rem;
+		color: $text-strong;
+
+		&--inline {
+			display: flex;
+
+			input {
+				flex: 1;
+				margin-right: -1px;
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+
+			button {
+				border-bottom-left-radius: 0;
+				border-top-left-radius: 0;
+			}
+		}
+	}
+
+	&_errorMsg {
+		color: $danger;
+		padding-top: 4px;
+	}
+}
+
+// 文字
+@each $key, $value in $colors {
+	.text-#{$key} {
+	  color: $value !important;
+	}
+}
+.text {
+	&-right {
+		text-align: right;
+	}
+
+	&-center {
+		text-align: center;
+	}
+}
+
+// 按鈕
+.btn {
+	display: inline-block;
+	line-height: normal;
+	border-radius: 5px;
+	padding: 8px 12px;
+	font-size: 1rem;
+	border-style: solid;
+	border-width: 1px;
+	color: #fff;
+	box-shadow: none;
+	transition: background-color ease .25s;
+
+	&:hover {
+		transition: background-color ease .35s;
+	}
+
+	&:disabled {
+		opacity: .65;
+		cursor: not-allowed;
+	}
+
+	&-outline {
+		background-color: transparent;
+	}
+
+	&-circle {
+		text-align: center;
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+		border-radius: 50%;
+		border-width: 1px;
+		border-style: solid;
+		font-size: 1.125rem;
+		display: inline-block;
+	}
+
+	&-sm {
+		padding: 4px 8px;
+	}
+}
+@each $key, $value in $colors {
+	.btn-#{$key}:not(.btn-outline) {
+		background-color: $value;
+		color: #fff;
+
+		&:not(:disabled):hover {
+			background-color: lighten($color: $value, $amount: 4%);
+		}
+	}
+
+	.btn-#{$key}.btn-outline {
+		color: $value;
+
+		&:not(:disabled):hover {
+			background-color: $value;
+			color: #fff;
+		}
+	}
+
+	.btn-#{$key} {
+		border-color: $value;
+		color: $value;
+	}
+}
+
+.animated-rubberBand {
+	animation-duration: 1s;
+	animation-name: rubberBand;
+}
+@keyframes rubberBand {
+	0% {
+		transform: scaleX(1);
+	}
+	30% {
+		transform: scale3d(1.25, .75, 1);
+	}
+	40% {
+		transform: scale3d(.75, 1.25, 1);
+	}
+	
+	50% {
+		transform: scale3d(1.15, .85, 1);
+	}
+	65% {
+		transform: scale3d(.95, 1.05, 1);
+	}
+	75% {
+		transform: scale3d(1.05, .95, 1);
+	}
+	100% {
+		transform: scaleX(1);
+	}
+}

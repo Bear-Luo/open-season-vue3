@@ -1,0 +1,202 @@
+
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 30px 25px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+    flex-wrap: wrap;
+	transition: all .15s ease;
+	z-index: 9;
+
+	+div {
+		padding-top: 106px;
+		flex: 1;
+	}
+	
+	&_logoLink {
+		display: flex;
+		align-items: center;
+		margin-right: 1rem;
+	}
+
+	&_logo {
+		margin-right: 10px;
+		height: 36px;
+		width: auto;
+
+		&_text {
+			width: 156px;
+			height: auto;
+		}
+	}
+
+	&_nav {
+		display: flex;
+		font-size: 1.25rem;
+
+		a {
+			display: block;
+			padding: 8px .5rem;
+			color: $primary;
+			transition: all .1s ease;
+			position: relative;
+
+			&::before {
+				display: block;
+				content: "";
+				height: 3px;
+				width: 0;
+				border-radius: 1.5px;
+				background-color: $primary;
+				transition: all .1s ease;
+				position: absolute;
+				top: -30px;
+				left: 0;
+                
+                @include rwd(m) {
+                    display: none;
+                }
+			}
+
+			&:not(.active)::before {
+				opacity: .55;
+			}
+
+			&:hover {
+				&::before {
+					width: 100%;
+					transition: all .1s ease;
+				}
+			}
+
+			&.active::before {
+				opacity: 1;
+				width: 100%;
+			}
+		}
+
+		&:hover {
+			a:not(:hover, .active) {
+				opacity: .55;
+			}
+		}
+
+        &_toggle {
+            background-color: transparent;
+            border-color: transparent;
+            display: none;
+            height: 30px;
+
+            span {
+                position: relative;
+
+                &::before, &::after {
+                    content: "";
+                    left: 0;
+                    position: absolute;
+                }
+
+                &::before {
+                    top: -8px;
+                }
+
+                &::after {
+                    bottom: -8px;
+                }
+            }
+
+            span, span::before, span::after {
+                display: block;
+                width: 30px;
+                height: 2px;
+                border-radius: 1px;
+                background-color: $primary;
+                transition: all .15s ease;
+            }
+
+            @include rwd(m) {
+                display: block;
+            }
+        }
+
+        @include rwd(m) {
+			width: 100%;
+			height: 0;
+			transition: all .5s ease;
+            display: none;
+        }
+	}
+
+	&_text-light, &-dark {
+		.header_nav a {
+			color: #fff;
+
+			&::before {
+				background-color: #fff;
+			}
+		}
+
+        .header_nav_toggle {
+            span, span::before, span::after {
+                background-color: #fff;
+            }
+        }
+	}
+    
+    &-dark, &--scroll {
+		background-color: rgba($color: $primary, $alpha: .85);
+    }
+
+	&--scroll {
+		padding-top: 18px;
+		padding-bottom: 18px;
+		transition: all .15s ease;
+
+		.header_logo_text {
+			height: 26px;
+			width: auto;
+		}
+
+		.header_nav a::before {
+			top: -18px;
+		}
+	}
+    
+    &.expand {
+        .header_nav {
+            display: block;
+            padding-top: 5px;
+			height: auto;
+			transition: all .5s ease;
+
+            a {
+                padding: 13px 0;
+            }
+
+			&_toggle {
+				span {
+					background-color: transparent;
+
+					&::before {
+						top: 0;
+						transform: rotate(45deg);
+					}
+	
+					&::after {
+						top: 0;
+						transform: rotate(-45deg);
+					}
+				}
+			}
+        }
+    }
+
+    @include rwd(m) {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
