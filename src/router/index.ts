@@ -1,17 +1,30 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import i18n from '../i18n/index';
+import { useTitle } from '@vueuse/core';
 
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
 	routes: [
 		{
+			path: '/:pathMatch(.*)*',
+			name: 'notfound',
+			component: () => import('@/views/NotFound.vue'),
+		},
+		{
 			path: '/',
 			name: 'home',
 			component: () => import('@/views/Home.vue'),
+			meta: {
+				title: i18n.global.t('common.openSeason'),
+			},
 		},
 		{
 			path: '/product-list',
 			name: 'productList',
 			component: () => import('@/views/ProductList.vue'),
+			meta: {
+				title: i18n.global.t('header.productList'),
+			},
 		},
 		{
 			path: '/product-page/:id',
@@ -23,6 +36,9 @@ const router = createRouter({
 			path: '/cart',
 			name: 'cart',
 			component: () => import('@/views/Cart.vue'),
+			meta: {
+				title: i18n.global.t('cart.steps', 0),
+			},
 		},
 		{
 			path: '/order/:orderId',
@@ -33,6 +49,9 @@ const router = createRouter({
 			path: '/wish-list',
 			name: 'wishList',
 			component: () => import('@/views/WishList.vue'),
+			meta: {
+				title: i18n.global.t('common.wishList'),
+			},
 		},
 	],
 	scrollBehavior(to, from) {
@@ -42,13 +61,18 @@ const router = createRouter({
 				top: 72,
 				behavior: 'smooth',
 			};
-		} else if(from.path === '/' && to.path === '/') {
+		} else {
 			return {
 				top: 0,
 				behavior: 'smooth',
 			};
 		}
 	},
+});
+
+router.beforeEach((to) => {
+	const title = to.meta.title ?? i18n.global.t('common.openSeason');
+	useTitle(`${ title }`);
 });
 
 export default router;

@@ -2,14 +2,13 @@
 import Steps from '@/components/Cart/Steps.vue';
 import CheckInfo from '@/components/Cart/CheckInfo/Index.vue';
 import Order from '@/components/Cart/Order.vue';
-import Loading from '@/components/Loading.vue';
 
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { useCart, useOrder } from '@/composables/useCart';
 
-const { getCart, cartCount, setCartEachQty, useCartFullPageLoading } = useCart();
+const { getCart, cartCount, setCartEachQty } = useCart();
 const { getOrder } = useOrder();
 const route = useRoute();
 
@@ -24,8 +23,6 @@ onMounted(async () => {
 </script>
 
 <template>
-	<Loading :loading="useCartFullPageLoading" full-page />
-
 	<template v-if="cartCount || route.name === 'order'">
 		<Steps />
 		<component :is="$route.name === 'order' ? Order : CheckInfo" />

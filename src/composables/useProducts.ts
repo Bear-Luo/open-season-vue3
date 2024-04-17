@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue';
-import { createGlobalState, useSorted } from '@vueuse/core';
+import { createGlobalState, useSorted, useTitle } from '@vueuse/core';
 import { apiHandler } from '@/assets/scripts/api-handler';
 import { type Product, type Category } from './types';
 import { useI18n } from 'vue-i18n';
@@ -75,6 +75,21 @@ export const useProducts = createGlobalState(() => {
 		return returnList;
 	});
 
+	const productPageData = ref({} as Product);
+	const getProduct = async (id: string) => {
+		loading.value = true;
+
+		const { success, product } = await apiHandler(
+			'get',
+			`/product/${ id }`,
+		);
+		if(success) {
+			productPageData.value = product as Product;
+			useTitle(`${ productPageData.value.title }`);
+		}
+		loading.value = false;
+	};
+
 	return {
 		loading,
 		productList, getProductList,
@@ -82,5 +97,6 @@ export const useProducts = createGlobalState(() => {
 		keyword,
 		sortPrice, changeSortPrice,
 		filterProductList,
+		getProduct, productPageData,
 	};
 });

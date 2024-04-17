@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue';
-import { createGlobalState } from '@vueuse/core';
+import { createGlobalState, useTitle } from '@vueuse/core';
 import router from '@/router';
+import { useI18n } from 'vue-i18n';
 
 import { apiHandler } from '@/assets/scripts/api-handler';
 import { useNotify } from './useNotify';
@@ -98,7 +99,6 @@ export const useCart = createGlobalState(() => {
 	};
 });
 
-
 export const useOrder = createGlobalState(() => {
 	const loading = ref(true);
 	const recipientInfo = ref<{ [key: string]: string }>({
@@ -133,9 +133,12 @@ export const useOrder = createGlobalState(() => {
 				name: 'order',
 				params: { orderId },
 			});
+
+			await getOrder(`${ orderId }`);
 		}
 	};
 
+	const { t } = useI18n();
 	const orderData = ref<Order>({} as Order);
 	const getOrder = async (id: string) => {
 		loading.value = true;
@@ -147,6 +150,7 @@ export const useOrder = createGlobalState(() => {
 		if(success) {
 			orderData.value = order as Order;
 		}
+		useTitle(t('cart.steps', orderData.value.is_paid ? 2 : 1));
 		loading.value = false;
 	};
 

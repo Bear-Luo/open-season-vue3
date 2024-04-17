@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import Loading from '@/components/Loading.vue';
 import Form from '@/components/Cart/CheckInfo/Form.vue';
 import CartInfo from '@/components/Cart/CheckInfo/CartInfo.vue';
 
 import { useI18n } from 'vue-i18n';
 
-import { useOrder } from '@/composables/useCart';
+import { useOrder, useCart } from '@/composables/useCart';
 
 const { t } = useI18n();
 const continueShopping = {
@@ -17,10 +18,12 @@ const continueShopping = {
 	},
 };
 
+const { useCartFullPageLoading } = useCart();
 const { checkInfoSubmitDisable, submitOrder } = useOrder();
 </script>
 
 <template>
+	<Loading :loading="useCartFullPageLoading" full-page />
 	<div class="checkInfo">
 		<div class="card shadow">
 			<Form />

@@ -75,6 +75,7 @@ const clickPagination = (value: number) => {
 	&_block {
 		background-color: $info;
 		padding: 3rem ;
+		min-height: 100vh;
 	}
 
 	&_title {

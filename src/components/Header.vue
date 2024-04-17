@@ -61,6 +61,7 @@ const headerStyleControl = computed(() => {
 		<router-link
 			to="/"
 			class="header_logoLink"
+			@click="navToggle = false"
 		>	
 			<img
 				v-show="headerStyleControl.isScrolled"
@@ -85,6 +86,7 @@ const headerStyleControl = computed(() => {
 			<li
 				v-for="(item, i) in nav"
 				:key="i"
+				@click="navToggle = false"
 			>
 				<router-link
 					:to="item.to"

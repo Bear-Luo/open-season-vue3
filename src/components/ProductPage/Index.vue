@@ -2,33 +2,30 @@
 import ActionBtn from './ActionBtn.vue';
 
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
 
 import { useProducts } from '@/composables/useProducts';
 
-const { productList } = useProducts();
-const route = useRoute();
-const data = computed(() => productList.value.find(elm => elm.id === route.params.id));
+const { productList, productPageData, getProduct } = useProducts();
 
-const similarProduct = computed(() => productList.value.filter(elm => elm.category === data.value?.category && elm.id !== data.value.id));
+const similarProduct = computed(() => productList.value.filter(elm => elm.category === productPageData.value?.category && elm.id !== productPageData.value.id));
 </script>
 
 <template>
 	<div class="container productPage">
 		<div class="productPage_info">
-			<img :src="data?.imageUrl">
+			<img :src="productPageData.imageUrl">
 
 			<div class="productPage_info_main">
-				<div class="productPage_info_title">{{ data?.title }}</div>
+				<div class="productPage_info_title">{{ productPageData.title }}</div>
 				<div class="productPage_info_content">
-					<div>{{ data?.description }}</div>
-					<div>{{ data?.content }}</div>
+					<div>{{ productPageData.description }}</div>
+					<div>{{ productPageData.content }}</div>
 				</div>
 				<div class="productPage_price">
-					<div class="price-origin">{{ $t('common.originalPrice', { price: data?.origin_price }) }}</div>
-					<div class="price-special">{{ $t('common.specialPrice', { price: data?.price }) }}</div>
+					<div class="price-origin">{{ $t('common.originalPrice', { price: productPageData.origin_price }) }}</div>
+					<div class="price-special">{{ $t('common.specialPrice', { price: productPageData.price }) }}</div>
 				</div>
-				<ActionBtn :id="data?.id" />
+				<ActionBtn :id="productPageData.id" />
 			</div>
 		</div>
 		
@@ -52,6 +49,7 @@ const similarProduct = computed(() => productList.value.filter(elm => elm.catego
 				v-for="item in similarProduct"
 				:key="item.id"
 				:to="{ name: 'productPage', params: { id: item.id }}"
+				@click="getProduct(item.id)"
 			>
 				<div
 					:style="`background-image: url(${ item.imageUrl })`"
@@ -197,6 +195,11 @@ const similarProduct = computed(() => productList.value.filter(elm => elm.catego
 		display: flex;
 		margin-top: 20px;
 		line-height: 1.5;
+		padding-left: 1rem;
+
+		@include rwd(s) {
+			padding-left: 0;
+		}
 
 		&_title {
 			font-size: 1.125rem;
@@ -218,8 +221,12 @@ const similarProduct = computed(() => productList.value.filter(elm => elm.catego
 	&_similarList {
 		display: flex;
 		width: 100%;
-		padding: 0 .875rem;
+		padding: 0 .5rem 40px;
 		flex-wrap: wrap;
+
+		@include rwd(s) {
+			padding: 0 0 40px;
+		}
 
 		a {
 			display: block;

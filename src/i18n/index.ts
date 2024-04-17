@@ -9,6 +9,7 @@ const i18n = createI18n<[MessageSchema], 'zh-tw'>({
 	locale: 'zh-tw',
 	fallbackLocale: 'zh-tw',
 	globalInjection: true,
+	warnHtmlMessage: false,
 	messages: {
 		'zh-tw': zhTw,
 	},

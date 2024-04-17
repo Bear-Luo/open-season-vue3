@@ -3,7 +3,6 @@ export interface Product {
 	content: string
 	description: string
 	id: string
-	image: string
 	imageUrl: string
 	is_enabled: number
 	num: number
@@ -11,6 +10,7 @@ export interface Product {
 	price: string
 	title: string
 	unit: string
+	image?: string
 }
 
 export interface Loading {

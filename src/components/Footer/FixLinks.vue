@@ -11,12 +11,17 @@ const links = computed(() => {
 	const arr = [
 		{
 			name: 'cart',
-			visible: route.name !== 'home' && route.name !== 'cart' && route.name !== 'order' && !useCartFullPageLoading.value,
+			visible: route.name !== 'home'
+				&& route.name !== 'cart'
+				&& route.name !== 'order'
+				&& (!useCartFullPageLoading.value),
 			icon: ['fas', 'basket-shopping'],
 		},
 		{
 			name: 'wishList',
-			visible: route.name !== 'home' && route.name !== 'wishList' && route.name !== 'order',
+			visible: route.name !== 'home'
+				&& route.name !== 'wishList'
+				&& route.name !== 'order',
 			icon: ['fas', 'heart'],
 		},
 	];

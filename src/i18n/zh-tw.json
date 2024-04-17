@@ -4,7 +4,9 @@
 		"dollar": "$ {price} 元",
 		"originalPrice": "原價：$ {price}",
 		"specialPrice": "優惠：$ {price}",
-		"wishList": "關注商品"
+		"wishList": "關注商品",
+		"openSeason": "角獵咖啡",
+		"notFoundPage": "查無此頁"
 	},
 	"header": {
 		"about": "關於我們",
@@ -36,6 +38,7 @@
 		"qa-2": "<div class=\"productPage_qa_title\">商品保存方式及保存期限？</div>咖啡：於包裝印有保存期限與保存方式。<br>果醬：於包裝印有保存期限與保存方式，開封後請冷藏。<br>水果軟糖：當日製作完成即冷藏寄出，冷藏可放1禮拜，冷凍可放2禮拜，冷凍後建議取出靜放至稍軟再食用。<br>麵包：當日製作完成即冷藏寄出，冷藏可放1禮拜，冷凍可放2禮拜。烤麵包前建議於麵包表面噴點水可避免變太乾。\n",
 		"qa-3": "<div class=\"productPage_qa_title\">退換貨須知</div>由於考量食品衛生安全，除了商品本身瑕疵、損壞、作業疏失或運送過程而造成的損毀，才能申請退換貨。一經個人拆封、食用、失溫及保存不良等情形而導致商品變質，恕無法處理您的退換貨申請。<br>退貨時請保持包裝完整寄回！<br>訂購前，請詳閱商品頁面說明，或來電與人員確認細項後，再行下單喔！\n",
 		"addToWishList": "加入關注",
+		"removeFromWishList": "取消關注",
 		"addToCart": "加入購物車",
 		"select": "選購 {value} 盒"
 	},

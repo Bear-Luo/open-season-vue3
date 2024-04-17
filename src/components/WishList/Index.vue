@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Loading from '../Loading.vue';
 
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 import { useWishList } from '@/composables/useWishList';
 import { useCart } from '@/composables/useCart';
@@ -54,10 +54,6 @@ const wishListData = computed(() => {
 						type="button"
 						@click="addToCart({ qty: 1, product_id: `${ item?.id }`, mode: 'add' })"
 					>
-						<!-- <font-awesome-icon
-							v-if="loading"
-							:icon="['fas', 'spinner']" spin-pulse
-						/> -->
 						<font-awesome-icon
 							:icon="['fas', 'basket-shopping']"
 						/>

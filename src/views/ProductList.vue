@@ -9,7 +9,7 @@ import { onMounted } from 'vue';
 import { useProducts } from '@/composables/useProducts';
 import { useCart } from '@/composables/useCart';
 
-const { loading, getProductList } = useProducts();
+const { loading, getProductList, productList } = useProducts();
 const { getCart } = useCart();
 
 onMounted(async () => {
@@ -19,8 +19,8 @@ onMounted(async () => {
 </script>
 
 <template>
-	<div class="productList_page">
-		<Loading :loading="loading" full-page />
+	<Loading :loading="loading" full-page />
+	<div v-if="productList.length" class="productList_page">
 		<Sidebar />
 		<div class="productList_container">
 			<Filter />

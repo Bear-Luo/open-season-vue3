@@ -19,7 +19,7 @@ const recipientInfo = ['email', 'name', 'tel', 'address'];
 
 <template>
 	<div class="orderPage">
-		<div class="card_top">
+		<div v-if="orderData.is_paid" class="card_top">
 			<div class="card_topMsg shadow">
 				<span>{{ $t('cart.isPaidMsg', 1) }}</span>
 				<router-link
