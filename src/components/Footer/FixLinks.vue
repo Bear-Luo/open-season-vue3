@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 
 import { useCart } from '@/composables/useCart';
 
-const { cartCount, useCartFullPageLoading } = useCart();
+const { cartCount, useCartLoading } = useCart();
 const route = useRoute();
 
 const links = computed(() => {
@@ -14,7 +14,7 @@ const links = computed(() => {
 			visible: route.name !== 'home'
 				&& route.name !== 'cart'
 				&& route.name !== 'order'
-				&& (!useCartFullPageLoading.value),
+				&& (!useCartLoading.value || cartCount.value),
 			icon: ['fas', 'basket-shopping'],
 		},
 		{

@@ -18,12 +18,12 @@ const continueShopping = {
 	},
 };
 
-const { useCartFullPageLoading } = useCart();
+const { useCartLoading } = useCart();
 const { checkInfoSubmitDisable, submitOrder } = useOrder();
 </script>
 
 <template>
-	<Loading :loading="useCartFullPageLoading" full-page />
+	<Loading :loading="useCartLoading" full-page />
 	<div class="checkInfo">
 		<div class="card shadow">
 			<Form />

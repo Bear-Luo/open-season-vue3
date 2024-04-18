@@ -9,7 +9,7 @@ import { useProducts } from '@/composables/useProducts';
 import { useCart } from '@/composables/useCart';
 
 const route = useRoute();
-const { loading, getProduct, getProductList } = useProducts();
+const { productPageLoading, getProduct, getProductList } = useProducts();
 const { getCart } = useCart();
 
 onMounted(async () => {
@@ -20,6 +20,6 @@ onMounted(async () => {
 </script>
 
 <template>
-	<Loading :loading="loading" full-page />
+	<Loading :loading="productPageLoading" full-page />
 	<Index />
 </template>

@@ -75,9 +75,10 @@ export const useProducts = createGlobalState(() => {
 		return returnList;
 	});
 
+	const productPageLoading = ref(true);
 	const productPageData = ref({} as Product);
 	const getProduct = async (id: string) => {
-		loading.value = true;
+		productPageLoading.value = true;
 
 		const { success, product } = await apiHandler(
 			'get',
@@ -87,7 +88,7 @@ export const useProducts = createGlobalState(() => {
 			productPageData.value = product as Product;
 			useTitle(`${ productPageData.value.title }`);
 		}
-		loading.value = false;
+		productPageLoading.value = false;
 	};
 
 	return {
@@ -97,6 +98,6 @@ export const useProducts = createGlobalState(() => {
 		keyword,
 		sortPrice, changeSortPrice,
 		filterProductList,
-		getProduct, productPageData,
+		productPageLoading, getProduct, productPageData,
 	};
 });

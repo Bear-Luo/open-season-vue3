@@ -170,6 +170,10 @@ label {
 	display: inline-block;
 	padding-bottom: .5rem;
 }
+select, input {
+	height: 40px;
+	line-height: 40px;
+}
 select, input, textarea {
 	font-size: 1rem;
 	padding: 10px;
@@ -178,12 +182,13 @@ select, input, textarea {
 	border-radius: 5px;
 	transition: border .25s ease;
 	box-sizing: border-box;
+	box-shadow: 0 0 0 0 transparent;
 
 	&:focus {
 		outline: 0;
 		border-color: #ffe187;
-		box-shadow: 0 0 0 .2rem rgba(255,193,7,.25);
-		transition: border .35s ease;
+		box-shadow: 0 0 0 .2rem rgba(255, 193, 7, .25);
+		transition: all .35s ease;
 	}
 
 	&.form-danger {
@@ -332,5 +337,58 @@ select, input, textarea {
 	}
 	100% {
 		transform: scaleX(1);
+	}
+}
+
+
+.nothing {
+	font-size: 1.25rem;
+	
+	>div {
+		position: relative;
+		padding-top: 10vh;
+
+		&::before, &::after {
+			display: block;
+			content: "";
+		}
+
+		&::before {
+			display: block;
+			content: "";
+			border-style: solid;
+			border-color: #aaa transparent transparent transparent;
+			border-width: .5rem;
+			position: absolute;
+			left: calc(50% - .5rem);
+			bottom: -12px;
+		}
+
+		&::after {
+			background-color: #bbb;
+			width: 1px;
+			height: 150px;
+			margin: 1rem auto;
+		}
+	}
+
+	.btn {
+		font-size: 1.25rem;
+		padding: 1rem 1.5rem;
+		border-radius: 31px;
+		
+		i {
+			position: relative;
+			margin-left: 8px;
+			left: 0;
+			transition: left ease .35s;
+		}
+
+		&:hover {
+			i {
+				left: 3px;
+				transition: left ease .25s;
+			}
+		}
 	}
 }

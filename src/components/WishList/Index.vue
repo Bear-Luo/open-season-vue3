@@ -9,7 +9,7 @@ import { useProducts } from '@/composables/useProducts';
 import { type Product } from '@/composables/types';
 
 const { wishList, removeWishList } = useWishList();
-const { addToCart, useCartFullPageLoading } = useCart();
+const { addToCart, useCartLoading } = useCart();
 const { productList } = useProducts();
 
 const wishListData = computed(() => {
@@ -26,7 +26,7 @@ const wishListData = computed(() => {
 </script>
 
 <template>
-	<Loading :loading="useCartFullPageLoading" full-page />
+	<Loading :loading="useCartLoading" full-page />
 	<div class="wishList container">
 		<div class="wishList_title">{{ $t('common.wishList') }}</div>
 		<div class="card shadow">

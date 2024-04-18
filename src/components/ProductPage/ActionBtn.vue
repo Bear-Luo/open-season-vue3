@@ -12,7 +12,7 @@ const { wishList, addToWishList, removeWishList } = useWishList();
 const isInWishList = computed<boolean>(() => wishList.value.includes(props.id));
 const heart = computed<string[]>(() => isInWishList.value ? ['fas', 'heart'] : ['far', 'heart']);
 
-const { addToCart, loading } = useCart();
+const { addToCart, useCartLoading } = useCart();
 const count = ref<number>(1);
 </script>
 
@@ -42,7 +42,7 @@ const count = ref<number>(1);
 				@click="addToCart({ qty: count, product_id: `${ props.id }`, mode: 'add' })"
 			>
 				<font-awesome-icon
-					v-if="loading"
+					v-if="useCartLoading"
 					:icon="['fas', 'spinner']"
 					spin-pulse
 				/>

@@ -9,10 +9,10 @@ import { type CartData, type Order } from './types';
 
 export const useCart = createGlobalState(() => {
 	const { setMessage } = useNotify();
-	const useCartFullPageLoading = ref(true);
+	const useCartLoading = ref(true);
 	const cart = ref<CartData>({} as CartData);
 	const getCart = async () => {
-		useCartFullPageLoading.value = true;
+		useCartLoading.value = true;
 		const { success, data } = await apiHandler(
 			'get',
 			'/cart',
@@ -20,7 +20,7 @@ export const useCart = createGlobalState(() => {
 		if(success) {
 			cart.value = data as CartData;
 		}
-		useCartFullPageLoading.value = false;
+		useCartLoading.value = false;
 	};
 	const cartEachQty = ref<{[key: string]: number}>({});
 	const setCartEachQty = () => {
@@ -30,7 +30,7 @@ export const useCart = createGlobalState(() => {
 	};
 
 	const addToCart = async ({ qty, product_id, mode, id = '' }: { qty: number, product_id: string, mode: 'change' | 'add', id?: string  }) => {
-		useCartFullPageLoading.value = true;
+		useCartLoading.value = true;
 		await checkCartRepeat(({ id, product_id }));
 		const data = {
 			data: {
@@ -53,7 +53,7 @@ export const useCart = createGlobalState(() => {
 
 			if(mode === 'add') setMessage({ text: `${ message }` });
 		}
-		useCartFullPageLoading.value = false;
+		useCartLoading.value = false;
 	};
 
 	const repeatQty = ref(0);
@@ -66,7 +66,7 @@ export const useCart = createGlobalState(() => {
 	};
 
 	const removeCart = async ({ id, mode }: { id: string, mode: 'add' | 'remove' }) => {
-		useCartFullPageLoading.value = true;
+		useCartLoading.value = true;
 
 		const { success, message } = await apiHandler(
 			'delete',
@@ -76,7 +76,7 @@ export const useCart = createGlobalState(() => {
 			await getCart();
 			setMessage({ text: `${message}` });
 		}
-		useCartFullPageLoading.value = mode === 'add' ? true : false;
+		useCartLoading.value = mode === 'add' ? true : false;
 	};
 
 	const cartCount = computed(() => {
@@ -90,7 +90,7 @@ export const useCart = createGlobalState(() => {
 	});
 
 	return {
-		useCartFullPageLoading,
+		useCartLoading,
 		cart, getCart,
 		cartEachQty, setCartEachQty,
 		addToCart,

@@ -5,6 +5,8 @@
 		"originalPrice": "原價：$ {price}",
 		"specialPrice": "優惠：$ {price}",
 		"wishList": "關注商品",
+		"nothingInWishList": "沒有關注的商品",
+		"toFindWishList": "快去看看吧",
 		"openSeason": "角獵咖啡",
 		"notFoundPage": "查無此頁"
 	},
