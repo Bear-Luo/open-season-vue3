@@ -1,7 +1,7 @@
 import { createGlobalState, useStorage } from '@vueuse/core';
 
 export const useWishList = createGlobalState(() => {
-	const wishList = useStorage('wishList', JSON.parse(localStorage.wishList) || []);
+	const wishList = useStorage('wishList', [], localStorage, { mergeDefaults: true });
 
 	const addToWishList = (id: string) => {
 		wishList.value.push(id);
