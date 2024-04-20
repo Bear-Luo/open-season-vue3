@@ -41,7 +41,7 @@ const headerStyleControl = computed(() => {
 	
 	return {
 		isScrolled,
-		logoTextImgUrl: `/src/assets/images/logo-text${color}.svg`,
+		logoTextImgUrl: new URL(`/src/assets/images/logo-text${ color }.svg`, import.meta.url).href,
 		styleMode,
 	};
 });

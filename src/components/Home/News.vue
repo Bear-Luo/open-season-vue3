@@ -1,27 +1,17 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { LazyImg, Waterfall } from 'vue-waterfall-plugin-next';
+import { Waterfall } from 'vue-waterfall-plugin-next';
 import 'vue-waterfall-plugin-next/dist/style.css';
 
 import news from '@/assets/json/news.json';
-import { useUtils } from '@/composables/useUtils';
 
 const { t } = useI18n();
-const { isMobileWidth } = useUtils();
-
 const nowPage = ref(1);
-const count = computed(() => isMobileWidth.value ? 2 : 7);
-const newsList = computed(() => {
-	const p = nowPage.value;
-	const start = (p - 1) * count.value;
-	let end = start + count.value;
-	if(end > news.length) end = news.length;
+const count = 7;
+const newsList = computed(() => ([news.slice(0, 7), news.slice(7, 10)]));
 
-	return news.slice(start, end);
-});
-
-const maxPage = computed(() => Math.ceil(news.length / count.value));
+const maxPage = computed(() => Math.ceil(news.length / count));
 const paginationControl = computed(() => ({
 	prev: {
 		text: t('home.prev'),
@@ -32,6 +22,9 @@ const paginationControl = computed(() => ({
 		visible: maxPage.value !== 1 && nowPage.value !== maxPage.value,
 	},
 }));
+const number = ref(['10', '09', '08', '07', '06', '05', '04', '03', '02', '01']);
+const newImgsUrl = computed(() => (number.value.map(elm => new URL(`/src/assets/images/news/${ elm }.jpg`, import.meta.url).href)));
+
 const clickPagination = (value: number) => {
 	nowPage.value = nowPage.value + value;
 };
@@ -41,13 +34,31 @@ const clickPagination = (value: number) => {
 	<div id="news" class="news_block">
 		<div class="container">
 			<Waterfall
-				:list="newsList"
+				v-show="nowPage === 1"
+				:list="newsList[0]"
 				:gutter="20"
 			>
 				<template #item="{ item }">
 					<div class="waterfall_card">
 						<div class="news_title">{{ item.title }}</div>
-						<LazyImg :url="item.imgUrl" />
+						<div class="img_wrap">
+							<img :src="newImgsUrl[item.number]">
+						</div>
+					</div>
+				</template>
+			</Waterfall>
+
+			<Waterfall
+				v-show="nowPage === 2"
+				:list="newsList[1]"
+				:gutter="20"
+			>
+				<template #item="{ item }">
+					<div class="waterfall_card">
+						<div class="news_title">{{ item.title }}</div>
+						<div class="img_wrap">
+							<img :src="newImgsUrl[item.number]">
+						</div>
 					</div>
 				</template>
 			</Waterfall>
@@ -152,6 +163,14 @@ const clickPagination = (value: number) => {
 			box-shadow: 0 6px 16px rgba(0,0,0,.35);
 			transition: box-shadow .25s ease;
 		}
+	}
+}
+
+.img_wrap {
+	position: relative;
+	img {
+		width: 100%;
+		height: auto;
 	}
 }
 </style>
