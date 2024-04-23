@@ -3,6 +3,10 @@ body {
 	font-size: 1rem;
 	background-color: $bg-main;
 	color: $text-content;
+
+	&.locked {
+		overflow: hidden;
+	}
 }
 
 .page-wrap {
@@ -90,21 +94,21 @@ body {
 				}
 			}
 		}
+	}
 
-		&_btnCrosses {
-			color: silver;
-			font-size: .875rem;
-			background-color: transparent;
-			border: none;
+	&_btnCrosses {
+		color: silver;
+		font-size: .875rem;
+		background-color: transparent;
+		border: none;
 
-			&::before {
-				display: block;
-				content: "╳";
-			}
+		&::before {
+			display: block;
+			content: "╳";
+		}
 
-			&:hover {
-				color: $info;
-			}
+		&:hover {
+			color: $info;
 		}
 	}
 
@@ -308,6 +312,17 @@ select, input, textarea {
 	.btn-#{$key} {
 		border-color: $value;
 		color: $value;
+	}
+}
+// badge
+@each $key, $value in $colors {
+	.badge-#{$key}:not(.btn-outline) {
+		background-color: $value;
+		color: #fff;
+		font-size: .875rem;
+		display: inline-block;
+		border-radius: 4px;
+		padding: 4px 6px;
 	}
 }
 

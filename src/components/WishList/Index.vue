@@ -60,7 +60,7 @@ const wishListData = computed(() => {
 					</button>
 					<button
 						type="button"
-						class="card_list_btnCrosses"
+						class="card_btnCrosses"
 						@click="removeWishList(`${ item?.id}`)"
 					/>
 				</li>

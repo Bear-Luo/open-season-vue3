@@ -51,7 +51,7 @@ const { recipientInfo, setCheckInfoSubmitDisable } = useOrder();
 			:key="item.alias"
 			class="form_group"
 		>
-			<label :for="item.alias">
+			<label>
 				<span
 					v-if="item.rule && item.rule.includes('required')"
 					class="text-danger"

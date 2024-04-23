@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import NewsDialog from './NewsDialog.vue';
+
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Waterfall } from 'vue-waterfall-plugin-next';
@@ -28,6 +30,17 @@ const newImgsUrl = computed(() => (number.value.map(elm => new URL(`/src/assets/
 const clickPagination = (value: number) => {
 	nowPage.value = nowPage.value + value;
 };
+
+const dialogVisible = ref(false);
+const dialogNews = ref({});
+const dialogImg = ref('');
+const setDialogVisible = (v: boolean) => {
+	dialogVisible.value = v;
+};
+const clickNews = (news: {[key: string]: string}) => {
+	dialogNews.value = news;
+	setDialogVisible(true);
+};
 </script>
 
 <template>
@@ -39,7 +52,10 @@ const clickPagination = (value: number) => {
 				:gutter="20"
 			>
 				<template #item="{ item }">
-					<div class="waterfall_card">
+					<div
+						class="waterfall_card"
+						@click="clickNews(item);dialogImg = newImgsUrl[item.number]"
+					>
 						<div class="news_title">{{ item.title }}</div>
 						<div class="img_wrap">
 							<img :src="newImgsUrl[item.number]">
@@ -54,7 +70,10 @@ const clickPagination = (value: number) => {
 				:gutter="20"
 			>
 				<template #item="{ item }">
-					<div class="waterfall_card">
+					<div
+						class="waterfall_card"
+						@click="clickNews(item);dialogImg = newImgsUrl[item.number]"
+					>
 						<div class="news_title">{{ item.title }}</div>
 						<div class="img_wrap">
 							<img :src="newImgsUrl[item.number]">
@@ -79,6 +98,12 @@ const clickPagination = (value: number) => {
 			</div>
 		</div>
 	</div>
+	<NewsDialog
+		:visible="dialogVisible"
+		:news="dialogNews"
+		:img="dialogImg"
+		@close="setDialogVisible"
+	/>
 </template>
 
 <style lang="scss">

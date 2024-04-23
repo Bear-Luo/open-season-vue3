@@ -6,6 +6,7 @@ import { useCart } from '@/composables/useCart';
 
 const props = defineProps({
 	id: String,
+	unit: String,
 });
 
 const { wishList, addToWishList, removeWishList } = useWishList();
@@ -24,7 +25,7 @@ const count = ref<number>(1);
 				:key="i"
 				:value="i"
 			>
-				{{ $t('productPage.select', { value: i }) }}
+				{{ $t('productPage.select', { value: i }) + props.unit }}
 			</option>
 		</select>
 		<div>

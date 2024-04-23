@@ -25,7 +25,7 @@ const similarProduct = computed(() => productList.value.filter(elm => elm.catego
 					<div class="price-origin">{{ $t('common.originalPrice', { price: productPageData.origin_price }) }}</div>
 					<div class="price-special">{{ $t('common.specialPrice', { price: productPageData.price }) }}</div>
 				</div>
-				<ActionBtn :id="productPageData.id" />
+				<ActionBtn :id="productPageData.id" :unit="productPageData.unit" />
 			</div>
 		</div>
 		

@@ -38,7 +38,7 @@ const { cart, addToCart, removeCart, cartEachQty } = useCart();
 				<div class="price">{{ $t('common.price', { price: item.final_total }) }}</div>
 				<button
 					type="button"
-					class="card_list_btnCrosses"
+					class="card_btnCrosses"
 					@click="removeCart({ id: item.id, mode: 'remove' })"
 				/>
 			</li>

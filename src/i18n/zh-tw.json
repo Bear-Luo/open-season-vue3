@@ -42,7 +42,7 @@
 		"addToWishList": "加入關注",
 		"removeFromWishList": "取消關注",
 		"addToCart": "加入購物車",
-		"select": "選購 {value} 盒"
+		"select": "選購 {value}"
 	},
 	"cart": {
 		"steps": "輸入寄送資訊 | 確認繳費 | 訂單完成",

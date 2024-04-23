@@ -14,9 +14,7 @@ export const apiHandler = async <T>(method: Method, url: string, options = {}): 
 		});
 
 		res = data;
-	} catch (e) {
-		//
-	} finally {
+	} catch (e) { /* empty */ } finally {
 		if(!res.success && res.message) {
 			const { setMessage } = useNotify();
 			const { message } = res;

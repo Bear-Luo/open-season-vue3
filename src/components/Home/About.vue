@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+
 const { t } = useI18n();
 
 const aboutInfo = [
@@ -33,13 +34,7 @@ const aboutInfo = [
 			<ul>
 				<li v-for="(item, i) in aboutInfo" :key="i">
 					<font-awesome-icon :icon="item.icon" />
-					<a
-						v-if="item.name === 'tel'"
-						:href="item.text"
-					>
-						{{ item.text }}
-					</a>
-					<template v-else>{{ item.text }}</template>
+					<span>{{ item.text }}</span>
 				</li>
 			</ul>
 		</div>
