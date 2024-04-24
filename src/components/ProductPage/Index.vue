@@ -41,7 +41,7 @@ const similarProduct = computed(() => productList.value.filter(elm => elm.catego
 			<div v-html="$t(`productPage.qa-${i}`)" />
 		</div>
 
-		<div class="productPage_title">
+		<div v-if="similarProduct.length" class="productPage_title">
 			<span>{{ $t('productPage.similar') }}</span>
 		</div>
 		<div class="productPage_similarList">

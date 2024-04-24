@@ -9,7 +9,7 @@ const { messages, deleteMessage } = useNotify();
 		<div
 			v-for="item in messages"
 			:key="item.timeStamp"
-			class="notification_message fade"
+			class="notification_message shadow fade"
 			:class="[item.class, item.top === '0' ? 'show' : '']"
 			:style="`top: ${item.top}`"
 		>
@@ -37,13 +37,15 @@ const { messages, deleteMessage } = useNotify();
 		background-color: rgba($color: $quaternary, $alpha: .9);
 		color: #fff;
 		font-size: .875rem;
-		padding: .875rem;
+		padding: 10px 4px 10px 10px;
 		width: 180px;
 		display: flex;
 		border-radius: 5px;
 		position: relative;
 		margin-bottom: .5rem;
 		top: -.5rem;
+		line-height: 1.2;
+		align-items: flex-start;
 
 		>div {
 			flex: 1;
@@ -52,7 +54,11 @@ const { messages, deleteMessage } = useNotify();
 		button {
 			background-color: transparent;
 			border: none;
-			color: #fff;
+			color: rgba($color: #fff, $alpha: .7);
+
+			&:hover {
+				color: #fff;
+			}
 		}
 
 		&.danger {

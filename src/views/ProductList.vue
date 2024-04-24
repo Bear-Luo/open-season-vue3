@@ -7,14 +7,11 @@ import Filter from '@/components/ProductList/Filter.vue';
 import { onMounted } from 'vue';
 
 import { useProducts } from '@/composables/useProducts';
-import { useCart } from '@/composables/useCart';
 
 const { loading, getProductList, productList } = useProducts();
-const { getCart } = useCart();
 
 onMounted(async () => {
 	await getProductList();
-	await getCart();
 });
 </script>
 

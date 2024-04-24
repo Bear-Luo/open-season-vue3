@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { useCart } from '@/composables/useCart';
 
-const { cartCount, useCartLoading } = useCart();
+const { cartCount, useCartLoading, getCart } = useCart();
 const route = useRoute();
 
 const links = computed(() => {
@@ -27,6 +27,10 @@ const links = computed(() => {
 	];
 
 	return arr.filter(elm => elm.visible);
+});
+
+onMounted(async () => {
+	if(links.value[0].visible) await getCart();
 });
 </script>
 
@@ -83,12 +87,13 @@ const links = computed(() => {
 		font-size: .875rem;
 		height: 1.5rem;
 		min-width: 1.5rem;
-		border-radius: 50%;
+		border-radius: 7.25rem;
 		line-height: 1.5rem;
 		text-align: center;
 		position: absolute;
 		right: 0;
 		top: -5px;
+		padding: 0 4px;
 	}
 }
 </style>

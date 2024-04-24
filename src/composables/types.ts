@@ -25,12 +25,12 @@ export interface Category {
 }
 
 export interface CartData {
-	carts: Cart[]
+	carts: Carts[]
 	total: number
 	final_total: number
 }
-export interface Cart {
-	final_total: number
+export interface Carts {
+	final_total: number | string
 	id: string
 	product: Product
 	product_id: string

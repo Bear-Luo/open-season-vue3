@@ -31,6 +31,12 @@ export const useCart = createGlobalState(() => {
 
 	const addToCart = async ({ qty, product_id, mode, id = '' }: { qty: number, product_id: string, mode: 'change' | 'add', id?: string  }) => {
 		useCartLoading.value = true;
+
+		if(qty === 0) {
+			await removeCart({ id, mode: 'remove' });
+			return;
+		}
+
 		await checkCartRepeat(({ id, product_id }));
 		const data = {
 			data: {
@@ -83,7 +89,7 @@ export const useCart = createGlobalState(() => {
 		let count = 0;
 		if(Object.keys(cart.value).length) {
 			cart.value.carts.forEach(elm => {
-				count += elm.qty;
+				count += Number(elm.qty);
 			});
 		}
 		return count;

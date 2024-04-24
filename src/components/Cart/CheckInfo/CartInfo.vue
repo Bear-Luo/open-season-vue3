@@ -1,16 +1,35 @@
 <script setup lang="ts">
 import Coupon from './Coupon.vue';
 
+import { computed } from 'vue';
+
 import { useCart } from '@/composables/useCart';
+import { thousandthComma } from '@/assets/scripts/formatter';
+import { type Carts } from '@/composables/types';
 
 const { cart, addToCart, removeCart, cartEachQty } = useCart();
+
+const carts = computed(() => {
+	const arr: Carts[] = [];
+	if(Object.keys(cart.value).length && cart.value.carts.length) {
+		cart.value.carts.forEach(elm => {
+			let item = { ...elm };
+			item.final_total = thousandthComma(Number(item.final_total));
+			arr.push(item);
+		});
+	}
+	return arr;
+});
+
+const cartTotalPrice = computed(() => thousandthComma(cart.value.total));
+
 </script>
 
 <template>
 	<div class="cartInfo">
 		<ul class="card_list">
 			<li
-				v-for="item in cart.carts"
+				v-for="item in carts"
 				:key="item.id"
 			>
 				<router-link
@@ -23,18 +42,11 @@ const { cart, addToCart, removeCart, cartEachQty } = useCart();
 						{{ item.product.title }}
 					</router-link>
 				</div>
-				<select
-					v-model="cartEachQty[item.id]"
-					@change="addToCart({ qty: cartEachQty[item.id], product_id: item.product_id, mode: 'change' })"
+				<input
+					v-model.trim="cartEachQty[item.id]"
+					type="text"
+					@change="addToCart({ qty: Number(cartEachQty[item.id]), product_id: item.product_id, mode: 'change', id: item.id })"
 				>
-					<option
-						v-for="i in 10"
-						:key="i"
-						:value="i"
-					>
-						{{ i }}
-					</option>
-				</select>
 				<div class="price">{{ $t('common.price', { price: item.final_total }) }}</div>
 				<button
 					type="button"
@@ -44,7 +56,7 @@ const { cart, addToCart, removeCart, cartEachQty } = useCart();
 			</li>
 			<li class="cartInfo_total">
 				<div>{{ $t('cart.total') }}</div>
-				<div class="price">{{ $t('common.price', { price: cart.total }) }}</div>
+				<div class="price">{{ $t('common.price', { price: cartTotalPrice }) }}</div>
 			</li>
 		</ul>
 
@@ -59,15 +71,22 @@ const { cart, addToCart, removeCart, cartEachQty } = useCart();
 	}
 	
 	.price {
-		width: 60px;
+		width: 80px;
 		text-align: right;
 	}
 
-	.card_list .cartInfo_total {
-		font-weight: bold;
-		color: $text-strong;
-		padding-right: 38px;
-		justify-content: space-between;
+	.card_list{
+		input {
+			width: 80px;
+			text-align: right;
+		}
+
+		.cartInfo_total {
+			font-weight: bold;
+			color: $text-strong;
+			padding-right: 38px;
+			justify-content: space-between;
+		}
 	}
 }
 </style>
