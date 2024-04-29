@@ -40,6 +40,7 @@ const setDialogVisible = (v: boolean) => {
 const clickNews = (news: {[key: string]: string}) => {
 	dialogNews.value = news;
 	setDialogVisible(true);
+	dialogImg.value = newImgsUrl.value[Number(news.number)];
 };
 </script>
 
@@ -72,7 +73,7 @@ const clickNews = (news: {[key: string]: string}) => {
 				<template #item="{ item }">
 					<div
 						class="waterfall_card"
-						@click="clickNews(item);dialogImg = newImgsUrl[item.number]"
+						@click="clickNews(item);"
 					>
 						<div class="news_title">{{ item.title }}</div>
 						<div class="img_wrap">
@@ -112,6 +113,10 @@ const clickNews = (news: {[key: string]: string}) => {
 		background-color: $info;
 		padding: 3rem ;
 		min-height: 100vh;
+
+		@include rwd(s) {
+			padding: 1rem;
+		}
 	}
 
 	&_title {

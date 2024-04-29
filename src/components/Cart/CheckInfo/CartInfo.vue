@@ -33,21 +33,28 @@ const cartTotalPrice = computed(() => thousandthComma(cart.value.total));
 				:key="item.id"
 			>
 				<router-link
-					:to="{ name: 'productPage', params: { id: item.id } }"
+					:to="{ name: 'productPage', params: { id: item.product_id } }"
 					:style="`background-image: url(${item.product.imageUrl})`"
 					class="card_list_img"
 				/>
 				<div class="card_list_link">
-					<router-link :to="{ name: 'productPage', params: { id: item.id } }">
+					<router-link :to="{ name: 'productPage', params: { id: item.product_id } }">
 						{{ item.product.title }}
 					</router-link>
 				</div>
-				<input
-					v-model.trim="cartEachQty[item.id]"
-					type="text"
-					@change="addToCart({ qty: Number(cartEachQty[item.id]), product_id: item.product_id, mode: 'change', id: item.id })"
+				<select
+					v-model="cartEachQty[item.id]"
+					@change="addToCart({ qty: cartEachQty[item.id], product_id: item.product_id, mode: 'change' })"
 				>
-				<div class="price">{{ $t('common.price', { price: item.final_total }) }}</div>
+					<option
+						v-for="i in 10"
+						:key="i"
+						:value="i"
+					>
+						{{ i }}
+					</option>
+				</select>
+				<div class="price">{{ item.final_total }}</div>
 				<button
 					type="button"
 					class="card_btnCrosses"
@@ -56,7 +63,7 @@ const cartTotalPrice = computed(() => thousandthComma(cart.value.total));
 			</li>
 			<li class="cartInfo_total">
 				<div>{{ $t('cart.total') }}</div>
-				<div class="price">{{ $t('common.price', { price: cartTotalPrice }) }}</div>
+				<div class="price">{{ cartTotalPrice }}</div>
 			</li>
 		</ul>
 

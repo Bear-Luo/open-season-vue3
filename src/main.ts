@@ -23,7 +23,7 @@ configure({
 });
 setLocale('zh_TW');
 Object.keys(AllRules).forEach(rule => {
-	defineRule(rule, AllRules[rule]);
+	defineRule(rule, (AllRules as any)[rule]);
 });
 
 app.use(router);

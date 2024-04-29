@@ -29,12 +29,15 @@ const goToProductPage = (id: string) => {
 					:style="{ 'background-image': `url(${item.imageUrl})` }"
 					class="productList_card_img"
 				>
-					<ActionBtn :id="item.id" />
+					<ActionBtn
+						v-model:id="item.id"
+						v-model:title="item.title"
+					/>
 				</div>
 				<div>
 					<div class="productList_card_title">{{ item.title }}</div>
 					<div class="productList_card_price">
-						<span class="price-origin">{{ $t('common.price', { price: item.origin_price }) }}</span>
+						<span class="price-origin">{{ item.origin_price }}</span>
 						<span class="price-special">{{ $t('common.dollar', { price: item.price }) }}</span>
 					</div>
 				</div>

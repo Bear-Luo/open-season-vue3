@@ -1,10 +1,10 @@
 import { computed } from 'vue';
 import { useWindowSize, createGlobalState } from '@vueuse/core';
 
-const { width } = useWindowSize();
 
 export const useUtils = createGlobalState(() => {
-	const isMobileWidth = computed<boolean>(() => width.value < 1024);
+	const { width } = useWindowSize();
+	const isMobileWidth = computed<boolean>(() => width.value < 1025);
 
 	const setBodyLocked = (v: boolean) => {
 		const body = document.querySelector('body') || null;
@@ -16,6 +16,7 @@ export const useUtils = createGlobalState(() => {
 	};
 
 	return {
+		width,
 		isMobileWidth,
 		setBodyLocked,
 	};

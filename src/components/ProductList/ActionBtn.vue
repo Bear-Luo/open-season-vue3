@@ -4,12 +4,11 @@ import { computed, ref } from 'vue';
 import { useWishList } from '@/composables/useWishList';
 import { useCart } from '@/composables/useCart';
 
-const props = withDefaults(defineProps<{ id: string }>(), {
-	id: '',
-});
+const id = defineModel('id', { required: true, type: String, default: '' });
+const title = defineModel('title', { required: true, type: String, default: '' });
 
 const { wishList, addToWishList, removeWishList } = useWishList();
-const isInWishList = computed<boolean>(() => wishList.value.includes(props.id));
+const isInWishList = computed<boolean>(() => wishList.value.includes(id.value));
 const heart = computed<string[]>(() => isInWishList.value ? ['fas', 'heart'] : ['far', 'heart']);
 
 const { addToCart } = useCart();
@@ -17,7 +16,7 @@ const { addToCart } = useCart();
 const loading = ref(false);
 const clickCart = async ({ qty, product_id }: { qty: number, product_id: string }) => {
 	loading.value = true;
-	await addToCart({ qty, product_id, mode: 'add' });
+	await addToCart({ qty, product_id, mode: 'add', title: title.value });
 	loading.value = false;
 };
 </script>
@@ -27,7 +26,7 @@ const clickCart = async ({ qty, product_id }: { qty: number, product_id: string 
 		<button
 			:class="{ 'active': isInWishList }"
 			type="button"
-			@click.stop="isInWishList ? removeWishList(props.id) : addToWishList(props.id)"
+			@click.stop="isInWishList ? removeWishList(id) : addToWishList(id)"
 		>
 			<font-awesome-icon :icon="heart" />
 		</button>
@@ -35,7 +34,7 @@ const clickCart = async ({ qty, product_id }: { qty: number, product_id: string 
 		<button
 			:disabled="loading"
 			type="button"
-			@click.stop="clickCart({ qty: 1, product_id: props.id });"
+			@click.stop="clickCart({ qty: 1, product_id: id });"
 		>
 			<font-awesome-icon
 				v-if="loading"

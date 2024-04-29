@@ -5,14 +5,19 @@ import { useI18n } from 'vue-i18n';
 
 import { apiHandler } from '@/assets/scripts/api-handler';
 import { useNotify } from './useNotify';
-import { type CartData, type Order } from './types';
+import { type CartData, type Order, type UseCartMode } from './types';
 
 export const useCart = createGlobalState(() => {
 	const { setMessage } = useNotify();
+	const { t } = useI18n();
+
 	const useCartLoading = ref(true);
+	const setUseCartLoading = (v: boolean) => {
+		useCartLoading.value = v;
+	};
+
 	const cart = ref<CartData>({} as CartData);
 	const getCart = async () => {
-		useCartLoading.value = true;
 		const { success, data } = await apiHandler(
 			'get',
 			'/cart',
@@ -20,8 +25,8 @@ export const useCart = createGlobalState(() => {
 		if(success) {
 			cart.value = data as CartData;
 		}
-		useCartLoading.value = false;
 	};
+	
 	const cartEachQty = ref<{[key: string]: number}>({});
 	const setCartEachQty = () => {
 		cart.value.carts.forEach(elm => {
@@ -29,24 +34,31 @@ export const useCart = createGlobalState(() => {
 		});
 	};
 
-	const addToCart = async ({ qty, product_id, mode, id = '' }: { qty: number, product_id: string, mode: 'change' | 'add', id?: string  }) => {
-		useCartLoading.value = true;
+	const addToCart = async ({ qty, product_id, mode, title, id = '' }: { qty: number; product_id: string; mode: UseCartMode; title?: string, id?: string }) => {
+		setUseCartLoading(true);
+		repeatQty.value = 0;
+		await getCart();
+		await checkCartRepeat(({ id, product_id, mode }));
 
-		if(qty === 0) {
-			await removeCart({ id, mode: 'remove' });
-			return;
+		let changeQty = qty;
+		if(mode === 'add') {
+			changeQty += repeatQty.value;
+
+			if(repeatQty.value === 10) {
+				setMessage({ text: t('common.purchaseReachedLimit', { product: title }), class: 'danger' });
+				setUseCartLoading(false);
+				return;
+			} else if(changeQty > 10) {
+				changeQty = 10;
+				setMessage({ text: t('common.purchaseOverLimit', { product: title }), class: 'danger' });
+			}
 		}
-
-		await checkCartRepeat(({ id, product_id }));
 		const data = {
 			data: {
-				qty: mode === 'add'
-					? repeatQty.value + qty
-					: qty,
+				qty: changeQty,
 				product_id,
 			},
 		};
-		
 		const { success, message } = await apiHandler(
 			'post',
 			'/cart',
@@ -59,20 +71,23 @@ export const useCart = createGlobalState(() => {
 
 			if(mode === 'add') setMessage({ text: `${ message }` });
 		}
-		useCartLoading.value = false;
+		setUseCartLoading(false);
 	};
 
 	const repeatQty = ref(0);
-	const checkCartRepeat = async ({ id = '', product_id }: { id: string, product_id: string}) => {
+	const checkCartRepeat = async ({ id = '', product_id, mode }: { id: string; product_id: string; mode: UseCartMode }) => {
 		const index = cart.value.carts.findIndex(elm => elm.product_id === product_id);
 		if(index < 0) return;
-		const repeatId = id === '' ? cart.value.carts[index].id : id;
+
 		repeatQty.value = cart.value.carts[index].qty;
+		if(repeatQty.value === 10 && mode === 'add') return;
+		
+		const repeatId = id === '' ? cart.value.carts[index].id : id;
 		await removeCart({ id: repeatId, mode: 'add' });
 	};
 
-	const removeCart = async ({ id, mode }: { id: string, mode: 'add' | 'remove' }) => {
-		useCartLoading.value = true;
+	const removeCart = async ({ id, mode }: { id: string; mode: 'add' | 'remove' }) => {
+		setUseCartLoading(true);
 
 		const { success, message } = await apiHandler(
 			'delete',
@@ -82,10 +97,10 @@ export const useCart = createGlobalState(() => {
 			await getCart();
 			setMessage({ text: `${message}` });
 		}
-		useCartLoading.value = mode === 'add' ? true : false;
+		setUseCartLoading(mode === 'add' ? true : false);
 	};
 
-	const cartCount = computed(() => {
+	const cartCount = computed<number>(() => {
 		let count = 0;
 		if(Object.keys(cart.value).length) {
 			cart.value.carts.forEach(elm => {
@@ -96,7 +111,7 @@ export const useCart = createGlobalState(() => {
 	});
 
 	return {
-		useCartLoading,
+		useCartLoading, setUseCartLoading,
 		cart, getCart,
 		cartEachQty, setCartEachQty,
 		addToCart,

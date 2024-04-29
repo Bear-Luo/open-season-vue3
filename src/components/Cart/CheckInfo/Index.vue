@@ -18,13 +18,18 @@ const continueShopping = {
 	},
 };
 
-const { useCartLoading } = useCart();
+const { useCartLoading, cartCount, cart } = useCart();
 const { checkInfoSubmitDisable, submitOrder } = useOrder();
+
+const loadingFullPage = true;
 </script>
 
 <template>
-	<Loading :loading="useCartLoading" full-page />
-	<div class="checkInfo">
+	<Loading
+		v-model:loading="useCartLoading"
+		v-model:full-page="loadingFullPage"
+	/>
+	<div v-if="cartCount" class="checkInfo">
 		<div class="card shadow">
 			<Form />
 			<CartInfo />
@@ -41,6 +46,15 @@ const { checkInfoSubmitDisable, submitOrder } = useOrder();
 				{{ $t('cart.submitForm') }}
 			</button>
 		</div>
+	</div>
+	<div v-else-if="cartCount === 0 && Object.keys(cart).length" class="container text-center nothing">
+		<div>{{ $t('cart.nothingInCart') }}</div>
+		<router-link
+			:to="{ name: 'productList' }"
+			class="btn btn-success btn-outline"
+		>
+			<span v-html="$t('cart.goShopping')" />
+		</router-link>
 	</div>
 </template>
 

@@ -68,6 +68,10 @@
 		position: absolute;
 		right: 0;
 		bottom: 0;
+
+		@include rwd(l) {
+			display: block;
+		}
 		
 		button {
 			background-color: rgba($color: #fff, $alpha: .85);

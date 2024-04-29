@@ -23,10 +23,15 @@ const wishListData = computed(() => {
 
 	return returnData;
 });
+
+const loadingFullPage = true;
 </script>
 
 <template>
-	<Loading :loading="useCartLoading" full-page />
+	<Loading
+		v-model:loading="useCartLoading"
+		v-model:full-page="loadingFullPage"
+	/>
 	<div class="wishList container">
 		<div class="wishList_title">{{ $t('common.wishList') }}</div>
 		<div class="card shadow">
@@ -39,7 +44,7 @@ const wishListData = computed(() => {
 					:key="item?.id"
 				>
 					<router-link
-						:style="`background-image: url(${item?.imageUrl})`"
+						:style="`background-image: url(${ item?.imageUrl })`"
 						:to="{ name: 'productPage', params: { id: item?.id } }"
 						class="card_list_img"
 					/>
@@ -52,7 +57,7 @@ const wishListData = computed(() => {
 					<button
 						class="btn-circle btn-success btn-outline"
 						type="button"
-						@click="addToCart({ qty: 1, product_id: `${ item?.id }`, mode: 'add' })"
+						@click="addToCart({ qty: 1, product_id: `${ item?.id }`, mode: 'add', title: item?.title })"
 					>
 						<font-awesome-icon
 							:icon="['fas', 'basket-shopping']"
@@ -72,7 +77,7 @@ const wishListData = computed(() => {
 
 <style lang="scss">
 .wishList {
-	padding: 0 1rem;
+	padding: 0 1rem 3rem;
 
 	&_title {
 		font-size: 1.75rem;

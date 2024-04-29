@@ -1,16 +1,52 @@
 <script setup lang="ts">
 import ActionBtn from './ActionBtn.vue';
+import Loading from '../Loading.vue';
 
 import { computed } from 'vue';
 
 import { useProducts } from '@/composables/useProducts';
+import { useCart } from '@/composables/useCart';
+import { type Product } from '@/composables/types';
 
 const { productList, productPageData, getProduct } = useProducts();
 
 const similarProduct = computed(() => productList.value.filter(elm => elm.category === productPageData.value?.category && elm.id !== productPageData.value.id));
+const similarLength = computed(() => {
+	let length = 0;
+	if(similarProduct.value.length >= 3) {
+		length = 3;
+	} else {
+		length = similarProduct.value.length;
+	}
+	return length;
+});
+const shuffleArr = computed(() => {
+	let arr: Product[] = [];
+	if(similarLength.value > 1) {
+		let shuffleIndex = similarProduct.value.map((_, index) => index).sort(() => Math.random() - 0.5);
+		for(let i = 0; i < similarLength.value; i++) {
+			arr.push(similarProduct.value[Number(shuffleIndex[i])]);
+		}
+	} else if(similarLength.value === 1) {
+		arr = [...similarProduct.value];
+	}
+	return arr;
+});
+
+const { useCartLoading, cart } = useCart();
+const loadingFullPage = true;
+
+const actionBlockShow = computed(() => (
+	Object.keys(productPageData.value).length
+	&& Object.keys(cart.value).length
+));
 </script>
 
 <template>
+	<Loading
+		v-model:loading="useCartLoading"
+		v-model:full-page="loadingFullPage"
+	/>
 	<div class="container productPage">
 		<div class="productPage_info">
 			<img :src="productPageData.imageUrl">
@@ -25,7 +61,12 @@ const similarProduct = computed(() => productList.value.filter(elm => elm.catego
 					<div class="price-origin">{{ $t('common.originalPrice', { price: productPageData.origin_price }) }}</div>
 					<div class="price-special">{{ $t('common.specialPrice', { price: productPageData.price }) }}</div>
 				</div>
-				<ActionBtn :id="productPageData.id" :unit="productPageData.unit" />
+				<ActionBtn
+					v-if="actionBlockShow"
+					v-model:id="productPageData.id"
+					v-model:unit="productPageData.unit"
+					v-model:title="productPageData.title"
+				/>
 			</div>
 		</div>
 		
@@ -41,31 +82,33 @@ const similarProduct = computed(() => productList.value.filter(elm => elm.catego
 			<div v-html="$t(`productPage.qa-${i}`)" />
 		</div>
 
-		<div v-if="similarProduct.length" class="productPage_title">
-			<span>{{ $t('productPage.similar') }}</span>
-		</div>
-		<div class="productPage_similarList">
-			<router-link
-				v-for="item in similarProduct"
-				:key="item.id"
-				:to="{ name: 'productPage', params: { id: item.id }}"
-				@click="getProduct(item.id)"
-			>
-				<div
-					:style="`background-image: url(${ item.imageUrl })`"
-					class="productPage_similarList_img"
+		<template v-if="similarLength">
+			<div class="productPage_title">
+				<span>{{ $t('productPage.similar') }}</span>
+			</div>
+			<div class="productPage_similarList">
+				<router-link
+					v-for="item in shuffleArr"
+					:key="item.id"
+					:to="{ name: 'productPage', params: { id: item.id }}"
+					@click="getProduct(item.id)"
 				>
-					<img src="/src/assets/images/similar.gif">
-					<div>{{ item.title }}</div>
-				</div>
-			</router-link>
-		</div>
+					<div
+						:style="`background-image: url(${ item.imageUrl })`"
+						class="productPage_similarList_img"
+					>
+						<img src="/src/assets/images/similar.gif">
+						<div>{{ item.title }}</div>
+					</div>
+				</router-link>
+			</div>
+		</template>
 	</div>
 </template>
 
 <style lang="scss">
 .productPage {
-	padding: 0 1rem;
+	padding: 0 1rem 40px;
 
 	&_info {
 		display: flex;
@@ -221,7 +264,7 @@ const similarProduct = computed(() => productList.value.filter(elm => elm.catego
 	&_similarList {
 		display: flex;
 		width: 100%;
-		padding: 0 .5rem 40px;
+		padding: 0 .5rem;
 		flex-wrap: wrap;
 
 		@include rwd(s) {

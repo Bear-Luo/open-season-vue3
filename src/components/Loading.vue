@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import { type Loading } from '@/composables/types';
-
-const props = withDefaults(defineProps<Loading>(), {
-	loading: false,
-	light: false,
-	fullPage: false,
-});
+const loading = defineModel('loading', { required: true, type: Boolean, default: false });
+const light = defineModel('light', { type: Boolean, default: false });
+const fullPage = defineModel('fullPage', { type: Boolean, default: false });
 </script>
 
 <template>
 	<div
-		v-if="props.loading"
+		v-if="loading"
 		class="loading_mask"
 		:class="{
-			'light': props.light,
-			'fullPage': props.fullPage,
+			'light': light,
+			'fullPage': fullPage,
 		}"
 	>
 		<font-awesome-icon :icon="['fas', 'spinner']" spin-pulse />

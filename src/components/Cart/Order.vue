@@ -5,16 +5,18 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { useOrder } from '@/composables/useCart';
+import { thousandthComma } from '@/assets/scripts/formatter';
 
 const route = useRoute();
 const { orderData, payOrder, loading } = useOrder();
 
 const orderDetail = computed(() => {
-	const commodities = Object.keys(orderData.value.products).map((elm: string) => orderData.value.products[elm as keyof typeof orderData.value.products]);
+	const commodities = Object.keys(orderData.value.products).map(elm => orderData.value.products[elm as keyof typeof orderData.value.products]);
 	return commodities;
 });
 
 const recipientInfo = ['email', 'name', 'tel', 'address'];
+const loadingLight = true;
 </script>
 
 <template>
@@ -36,7 +38,11 @@ const recipientInfo = ['email', 'name', 'tel', 'address'];
 			</div>
 		</div>
 		<div class="card shadow">
-			<Loading v-if="loading" :loading="loading" :light="true" />
+			<Loading
+				v-if="loading"
+				v-model:loading="loading"
+				v-model:light="loadingLight"
+			/>
 			<template v-else>
 				<div class="card_title">{{ $t('cart.orderDetail') }}</div>
 				<table class="card_table">
@@ -53,8 +59,12 @@ const recipientInfo = ['email', 'name', 'tel', 'address'];
 							:key="item.id"
 						>
 							<td>{{ item.product.title }}</td>
-							<td>{{ item.qty + '/' + item.product.unit }}</td>
-							<td class="text-right">{{ item.product.price }}</td>
+							<td class="text-nowrap">{{ item.qty + '/' + item.product.unit }}</td>
+							<td class="text-right text-nowrap">{{ item.product.price }}</td>
+						</tr>
+						<tr>
+							<th>{{ $t('cart.total') }}</th>
+							<td colspan="2" class="text-right text-strong">{{ thousandthComma(orderData.total) }}</td>
 						</tr>
 					</tbody>
 				</table>

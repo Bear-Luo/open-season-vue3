@@ -1,14 +1,15 @@
 {
 	"common": {
-		"price": "$ {price}",
-		"dollar": "$ {price} 元",
-		"originalPrice": "原價：$ {price}",
-		"specialPrice": "優惠：$ {price}",
+		"dollar": "{price} 元",
+		"originalPrice": "原價：{price}",
+		"specialPrice": "優惠：{price}",
 		"wishList": "關注商品",
 		"nothingInWishList": "沒有關注的商品",
 		"toFindWishList": "快去看看吧",
 		"openSeason": "角獵咖啡",
-		"notFoundPage": "查無此頁"
+		"notFoundPage": "查無此頁",
+		"purchaseOverLimit": "您購買該商品（{product}）的數量已超過上限，系統將自動調整購買數量以符合上限。",
+		"purchaseReachedLimit": "您購買該商品（{product}）的數量已達上限。"
 	},
 	"header": {
 		"about": "關於我們",
@@ -42,7 +43,10 @@
 		"addToWishList": "加入關注",
 		"removeFromWishList": "取消關注",
 		"addToCart": "加入購物車",
-		"select": "選購 {value}"
+		"select": "選購 {value} {unit}",
+		"purchaseLimit": "購買上限 10 {unit}",
+		"reachedLimit": "您的購物車中該商品數量已達購買上限",
+		"selectQuantity": "----請選擇數量----"
 	},
 	"cart": {
 		"steps": "輸入寄送資訊 | 確認繳費 | 訂單完成",

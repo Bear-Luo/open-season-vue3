@@ -10,6 +10,8 @@ import { useWishList } from '@/composables/useWishList';
 const { loading, getProductList, productList } = useProducts();
 const { wishList } = useWishList();
 
+const loadingFullPage = true;
+
 onMounted(async () => {
 	if(productList.value.length === 0) await getProductList();
 });
@@ -17,7 +19,10 @@ onMounted(async () => {
 
 <template>
 	<div>
-		<Loading :loading="loading" full-page />
+		<Loading
+			v-model:loading="loading"
+			v-model:full-page="loadingFullPage"
+		/>
 		<template v-if="!loading">
 			<Index v-if="productList.length && wishList.length" />
 			<div v-else class="container text-center nothing">

@@ -5,6 +5,7 @@ $quaternary: #906d6a;
 $info: #ffc107;
 $danger: #ff547b;
 $success: #079ea2;
+$grey: rgba(0, 0, 0, 0.5);
 $colors: (
 	"primary": $primary,
 	"secondary": $secondary,
@@ -13,6 +14,7 @@ $colors: (
 	"info": $info,
 	"danger": $danger,
 	"success": $success,
+	"grey": $grey,
 );
 
 $bg-main: #fffbf0;

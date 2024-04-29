@@ -123,6 +123,7 @@ body {
 
 			th {
 				line-height: 1.5;
+				white-space: nowrap;
 			}
 		}
 
@@ -245,6 +246,15 @@ select, input, textarea {
 
 	&-center {
 		text-align: center;
+	}
+
+	&-strong {
+		color: $text-strong;
+		font-weight: bold;
+	}
+
+	&-nowrap {
+		white-space: nowrap;
 	}
 }
 

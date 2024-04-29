@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 import { useOrder } from '@/composables/useCart';
+import { useUtils } from '@/composables/useUtils';
 
 const { orderData } = useOrder();
 const route = useRoute();
@@ -14,18 +16,39 @@ const nowStep = computed<number>(() => {
 
 	return step;
 });
+
+const { t } = useI18n();
+const { width } = useUtils();
+const steps = computed<{ step: number; text: string }[]>(() => {
+	let stepArr = [];
+	if(width.value < 481) {
+		stepArr.push({
+			step: nowStep.value,
+			text: t('cart.steps', nowStep.value - 1),
+		});
+	} else {
+		for(let i = 0; i < 3; i++) {
+			stepArr.push({
+				step: i + 1,
+				text: t('cart.steps', i + 1),
+			});
+		}
+	}
+
+	return stepArr;
+});
 </script>
 
 <template>
 	<ul class="container cartPage_steps">
 		<li
-			v-for="i in 3"
-			:key="i"
-			:class="{ 'active': i <= nowStep }"
+			v-for="item in steps"
+			:key="item.step"
+			:class="{ 'active': item.step <= nowStep }"
 		>
 			<div>
-				<i>{{ i }}</i>
-				<span>{{ $t('cart.steps', i - 1) }}</span>
+				<i>{{ item.step }}</i>
+				<span>{{ item.text }}</span>
 			</div>
 		</li>
 	</ul>
@@ -41,6 +64,10 @@ const nowStep = computed<number>(() => {
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 40px;
+
+		@include rwd(s) {
+			justify-content: center;
+		}
 
 		i {
 			position: relative;

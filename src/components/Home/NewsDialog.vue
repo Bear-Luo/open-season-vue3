@@ -3,11 +3,16 @@ import { ref, watchEffect } from 'vue';
 
 import { useUtils } from '@/composables/useUtils';
 
-const props = defineProps({
-	news: Object,
-	visible: Boolean,
-	img: String,
-});
+const news = defineModel('news', { required: true, type: Object, default: {
+	number: '',
+	id: '',
+	date: '',
+	title: '',
+	content: '',
+	imgUrl: '',
+} });
+const visible = defineModel('visible', { required: true, type: Boolean, default: false });
+const img = defineModel('img', { required: true, type: String, default: '' });
 
 const emit = defineEmits<{
   close: [value: boolean]
@@ -23,8 +28,8 @@ const clickClose = (v: boolean) => {
 	}, 300);
 };
 watchEffect(() => {
-	if(props.visible) {
-		setBodyLocked(props.visible);
+	if(visible.value) {
+		setBodyLocked(visible.value);
 		setTimeout(() => {
 			cardVisible.value = true;
 		}, 10);
@@ -34,7 +39,7 @@ watchEffect(() => {
 
 <template>
 	<div
-		v-if="props.visible"
+		v-if="visible"
 		class="dialog_mask"
 	>
 		<Transition name="dialog">
@@ -51,15 +56,15 @@ watchEffect(() => {
 				</div>
 				<div class="dialog_main">
 					<div class="dialog_title ">
-						{{ props.news.title }}
+						{{ news.title }}
 					</div>
 					<div class="badge-primary">
-						{{ props.news.date }}
+						{{ news.date }}
 					</div>
 					<div class="dialog_content">
-						{{ props.news.content }}
+						{{ news.content }}
 					</div>
-					<img :src="$props.img">
+					<img :src="img">
 				</div>
 			</div>
 		</Transition>

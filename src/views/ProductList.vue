@@ -10,13 +10,18 @@ import { useProducts } from '@/composables/useProducts';
 
 const { loading, getProductList, productList } = useProducts();
 
+const loadingFullPage = true;
+
 onMounted(async () => {
 	await getProductList();
 });
 </script>
 
 <template>
-	<Loading :loading="loading" full-page />
+	<Loading
+		v-model:loading="loading"
+		v-model:full-page="loadingFullPage"
+	/>
 	<div v-if="productList.length" class="productList_page">
 		<Sidebar />
 		<div class="productList_container">

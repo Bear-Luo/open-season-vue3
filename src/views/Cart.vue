@@ -8,14 +8,16 @@ import { useRoute } from 'vue-router';
 
 import { useCart, useOrder } from '@/composables/useCart';
 
-const { getCart, cartCount, setCartEachQty } = useCart();
+const { getCart, cartCount, setCartEachQty, setUseCartLoading } = useCart();
 const { getOrder } = useOrder();
 const route = useRoute();
 
 onMounted(async () => {
 	if(route.name === 'cart') {
+		setUseCartLoading(true);
 		await getCart();
 		setCartEachQty();
+		setUseCartLoading(false);
 	} else if(route.name === 'order') {
 		await getOrder(route.params.orderId as string);
 	}
@@ -23,18 +25,6 @@ onMounted(async () => {
 </script>
 
 <template>
-	<template v-if="cartCount || route.name === 'order'">
-		<Steps />
-		<component :is="$route.name === 'order' ? Order : CheckInfo" />
-	</template>
-
-	<div v-else class="container text-center nothing">
-		<div>{{ $t('cart.nothingInCart') }}</div>
-		<router-link
-			:to="{ name: 'productList' }"
-			class="btn btn-success btn-outline"
-		>
-			<span v-html="$t('cart.goShopping')" />
-		</router-link>
-	</div>
+	<Steps v-if="cartCount || route.name === 'order'" />
+	<component :is="$route.name === 'order' ? Order : CheckInfo" />
 </template>

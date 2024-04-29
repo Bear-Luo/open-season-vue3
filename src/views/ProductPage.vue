@@ -10,6 +10,8 @@ import { useProducts } from '@/composables/useProducts';
 const route = useRoute();
 const { productPageLoading, getProduct, getProductList, productPageData } = useProducts();
 
+const loadingFullPage = true;
+
 onMounted(async () => {
 	await getProduct(`${ route.params.id }`);
 	await getProductList();
@@ -17,6 +19,9 @@ onMounted(async () => {
 </script>
 
 <template>
-	<Loading :loading="productPageLoading" full-page />
-	<Index v-if="Object.keys(productPageData).length" />
+	<Loading
+		v-model:loading="productPageLoading"
+		v-model:full-page="loadingFullPage"
+	/>
+	<Index v-if="Object.keys(productPageData).length && !productPageLoading" />
 </template>

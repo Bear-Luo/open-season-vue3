@@ -13,12 +13,6 @@ export interface Product {
 	image?: string
 }
 
-export interface Loading {
-	loading: boolean
-	light?: boolean
-	fullPage?: boolean
-}
-
 export interface Category {
 	text: string
 	active: boolean
@@ -56,14 +50,14 @@ export interface Order {
 	id: string
 	is_paid: boolean
 	paid_date: number
-	products: OrderProduct
+	products: { [key:string]: OrderProduct }
 	total: number
 	user: User
 }
 export interface OrderProduct {
 	final_total: number
 	id: string
-	product: {[key: string]: Product}
+	product: Product
 	product_id: string
 	qty: number
 }
@@ -83,3 +77,5 @@ export interface Messages extends MessagesParams {
 	timeStamp: number
 	top: string
 }
+
+export type UseCartMode = 'add' | 'change'

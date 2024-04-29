@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 
 import { useCart } from '@/composables/useCart';
 
-const { cartCount, useCartLoading, getCart } = useCart();
+const { cartCount, getCart, setUseCartLoading } = useCart();
 const route = useRoute();
 
 const links = computed(() => {
@@ -13,8 +13,7 @@ const links = computed(() => {
 			name: 'cart',
 			visible: route.name !== 'home'
 				&& route.name !== 'cart'
-				&& route.name !== 'order'
-				&& (!useCartLoading.value || cartCount.value),
+				&& route.name !== 'order',
 			icon: ['fas', 'basket-shopping'],
 		},
 		{
@@ -30,7 +29,11 @@ const links = computed(() => {
 });
 
 onMounted(async () => {
-	if(links.value[0].visible) await getCart();
+	if(links.value[0].visible) {
+		setUseCartLoading(true);
+		await getCart();
+		setUseCartLoading(false);
+	}
 });
 </script>
 

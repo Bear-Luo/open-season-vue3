@@ -10,7 +10,7 @@ const couponCode = '20percent';
 const { copy } = useClipboard();
 
 const inputCoupon = ref('');
-const { getCart } = useCart();
+const { getCart, setUseCartLoading } = useCart();
 const useCoupon = async (coupon: string) => {
 	const couponData = { data: { code: coupon } };
 	const { success } = await apiHandler(
@@ -20,7 +20,9 @@ const useCoupon = async (coupon: string) => {
 	);
 
 	if(success) {
+		setUseCartLoading(true);
 		await getCart();
+		setUseCartLoading(false);
 	} else {
 		inputCoupon.value = '';
 	}

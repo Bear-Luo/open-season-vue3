@@ -31,6 +31,7 @@ const { messages, deleteMessage } = useNotify();
 		right: 0;
 		top: 0;
 		padding: 90px 1.5rem 0 0;
+		z-index: 2;
 	}
 
 	&_message {
