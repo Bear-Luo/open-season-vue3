@@ -9,6 +9,9 @@ const router = createRouter({
 			path: '/:pathMatch(.*)*',
 			name: 'notfound',
 			component: () => import('@/views/NotFound.vue'),
+			meta: {
+				title: i18n.global.t('common.notFoundPage'),
+			},
 		},
 		{
 			path: '/',
