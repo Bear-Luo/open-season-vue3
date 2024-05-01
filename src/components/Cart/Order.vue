@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Loading from '../Loading.vue';
 
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { useOrder } from '@/composables/useCart';
@@ -16,7 +16,7 @@ const orderDetail = computed(() => {
 });
 
 const recipientInfo = ['email', 'name', 'tel', 'address'];
-const loadingLight = true;
+const loadingLight = ref(true);
 </script>
 
 <template>

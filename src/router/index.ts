@@ -40,7 +40,7 @@ const router = createRouter({
 			name: 'cart',
 			component: () => import('@/views/Cart.vue'),
 			meta: {
-				title: i18n.global.t('cart.steps', 0),
+				title: i18n.global.tc('cart.steps', 0),
 			},
 		},
 		{

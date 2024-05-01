@@ -2,7 +2,7 @@
 import ActionBtn from './ActionBtn.vue';
 import Loading from '../Loading.vue';
 
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import { useProducts } from '@/composables/useProducts';
 import { useCart } from '@/composables/useCart';
@@ -34,7 +34,7 @@ const shuffleArr = computed(() => {
 });
 
 const { useCartLoading, cart } = useCart();
-const loadingFullPage = true;
+const loadingFullPage = ref(true);
 
 const actionBlockShow = computed(() => (
 	Object.keys(productPageData.value).length

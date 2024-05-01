@@ -2,7 +2,7 @@
 import Loading from '@/components/Loading.vue';
 import Index from '@/components/WishList/Index.vue';
 
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import { useProducts } from '@/composables/useProducts';
 import { useWishList } from '@/composables/useWishList';
@@ -10,7 +10,7 @@ import { useWishList } from '@/composables/useWishList';
 const { loading, getProductList, productList } = useProducts();
 const { wishList } = useWishList();
 
-const loadingFullPage = true;
+const loadingFullPage = ref(true);
 
 onMounted(async () => {
 	if(productList.value.length === 0) await getProductList();

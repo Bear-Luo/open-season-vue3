@@ -4,6 +4,7 @@ import Form from '@/components/Cart/CheckInfo/Form.vue';
 import CartInfo from '@/components/Cart/CheckInfo/CartInfo.vue';
 
 import { useI18n } from 'vue-i18n';
+import { ref } from 'vue';
 
 import { useOrder, useCart } from '@/composables/useCart';
 
@@ -21,7 +22,7 @@ const continueShopping = {
 const { useCartLoading, cartCount, cart } = useCart();
 const { checkInfoSubmitDisable, submitOrder } = useOrder();
 
-const loadingFullPage = true;
+const loadingFullPage = ref(true);
 </script>
 
 <template>

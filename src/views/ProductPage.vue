@@ -2,7 +2,7 @@
 import Loading from '@/components/Loading.vue';
 import Index from '@/components/ProductPage/Index.vue';
 
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { useProducts } from '@/composables/useProducts';
@@ -10,7 +10,7 @@ import { useProducts } from '@/composables/useProducts';
 const route = useRoute();
 const { productPageLoading, getProduct, getProductList, productPageData } = useProducts();
 
-const loadingFullPage = true;
+const loadingFullPage = ref(true);
 
 onMounted(async () => {
 	await getProduct(`${ route.params.id }`);

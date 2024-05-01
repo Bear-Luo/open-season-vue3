@@ -4,13 +4,13 @@ import Sidebar from '@/components/ProductList/Sidebar.vue';
 import List from '@/components/ProductList/List.vue';
 import Filter from '@/components/ProductList/Filter.vue';
 
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import { useProducts } from '@/composables/useProducts';
 
 const { loading, getProductList, productList } = useProducts();
 
-const loadingFullPage = true;
+const loadingFullPage = ref(true);
 
 onMounted(async () => {
 	await getProductList();

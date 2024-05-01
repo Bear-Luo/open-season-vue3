@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Loading from '../Loading.vue';
 
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import { useWishList } from '@/composables/useWishList';
 import { useCart } from '@/composables/useCart';
@@ -24,7 +24,7 @@ const wishListData = computed(() => {
 	return returnData;
 });
 
-const loadingFullPage = true;
+const loadingFullPage = ref(true);
 </script>
 
 <template>

@@ -30,7 +30,7 @@ const steps = computed<{ step: number; text: string }[]>(() => {
 		for(let i = 0; i < 3; i++) {
 			stepArr.push({
 				step: i + 1,
-				text: t('cart.steps', i + 1),
+				text: t('cart.steps', i),
 			});
 		}
 	}
