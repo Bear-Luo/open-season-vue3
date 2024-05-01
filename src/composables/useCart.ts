@@ -156,6 +156,7 @@ export const useOrder = createGlobalState(() => {
 			});
 
 			await getOrder(`${ orderId }`);
+			await useCart().getCart();
 		}
 	};
 
@@ -175,7 +176,9 @@ export const useOrder = createGlobalState(() => {
 		loading.value = false;
 	};
 
+	const payOrderBtnDisabled = ref(false);
 	const payOrder = async (id: string) => {
+		payOrderBtnDisabled.value = true;
 		loading.value = true;
 		const { success } = await apiHandler(
 			'post',
@@ -186,6 +189,7 @@ export const useOrder = createGlobalState(() => {
 			await getOrder(id);
 		}
 		loading.value = false;
+		payOrderBtnDisabled.value = false;
 	};
 	
 	return {
@@ -194,6 +198,6 @@ export const useOrder = createGlobalState(() => {
 		checkInfoSubmitDisable, setCheckInfoSubmitDisable,
 		submitOrder,
 		getOrder, orderData,
-		payOrder,
+		payOrder, payOrderBtnDisabled,
 	};
 });

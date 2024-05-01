@@ -8,7 +8,7 @@ import { useOrder } from '@/composables/useCart';
 import { thousandthComma } from '@/assets/scripts/formatter';
 
 const route = useRoute();
-const { orderData, payOrder, loading } = useOrder();
+const { orderData, payOrder, loading, payOrderBtnDisabled } = useOrder();
 
 const orderDetail = computed(() => {
 	const commodities = Object.keys(orderData.value.products).map(elm => orderData.value.products[elm as keyof typeof orderData.value.products]);
@@ -85,6 +85,7 @@ const loadingLight = true;
 		</div>
 		<div v-if="!orderData.is_paid" class="card_actionBlock--out">
 			<button
+				:disabled="payOrderBtnDisabled"
 				type="button"
 				class="btn btn-success"
 				@click="payOrder(route.params.orderId as string)"
