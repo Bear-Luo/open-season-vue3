@@ -78,7 +78,7 @@ const cartTotalPrice = computed(() => thousandthComma(cart.value.total));
 	}
 	
 	.price {
-		width: 80px;
+		width: 56px;
 		text-align: right;
 	}
 

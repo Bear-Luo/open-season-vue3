@@ -62,6 +62,7 @@ const { setMessage } = useNotify();
 .coupon {
 	&_block {
 		margin-top: 1rem;
+		line-height: 1.5;
 		
 		input {
 			width: 100%;

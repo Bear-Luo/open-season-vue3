@@ -55,7 +55,7 @@ const loadingFullPage = true;
 					</div>
 					<div>{{ item?.price }}</div>
 					<button
-						class="btn-circle btn-success btn-outline"
+						class="btn btn-circle btn-success btn-outline"
 						type="button"
 						@click="addToCart({ qty: 1, product_id: `${ item?.id }`, mode: 'add', title: item?.title })"
 					>

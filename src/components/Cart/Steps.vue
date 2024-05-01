@@ -64,6 +64,7 @@ const steps = computed<{ step: number; text: string }[]>(() => {
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 40px;
+		box-sizing: border-box;
 
 		@include rwd(s) {
 			justify-content: center;
