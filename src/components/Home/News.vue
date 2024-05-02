@@ -24,7 +24,7 @@ const paginationControl = computed(() => ({
 		visible: maxPage.value !== 1 && nowPage.value !== maxPage.value,
 	},
 }));
-const number = ref(['10', '09', '08', '07', '06', '05', '04', '03', '02', '01']);
+const number = ref(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10']);
 const newImgsUrl = computed(() => (number.value.map(elm => new URL(`/src/assets/images/news/${ elm }.jpg`, import.meta.url).href)));
 
 const clickPagination = (value: number) => {
