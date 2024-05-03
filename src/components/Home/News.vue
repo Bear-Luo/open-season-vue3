@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import NewsDialog from './NewsDialog.vue';
 
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Waterfall } from 'vue-waterfall-plugin-next';
 import 'vue-waterfall-plugin-next/dist/style.css';
@@ -42,6 +42,13 @@ const clickNews = (news: {[key: string]: string}) => {
 	setDialogVisible(true);
 	dialogImg.value = newImgsUrl.value[Number(news.number)];
 };
+
+const waterfall = ref();
+onMounted(() => {
+	setTimeout(() => {
+		waterfall.value.renderer();
+	}, 500);
+});
 </script>
 
 <template>
@@ -51,6 +58,7 @@ const clickNews = (news: {[key: string]: string}) => {
 				v-show="nowPage === 1"
 				:list="newsList[0]"
 				:gutter="20"
+				ref="waterfall"
 			>
 				<template #item="{ item }">
 					<div
