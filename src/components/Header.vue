@@ -5,10 +5,12 @@ import { useWindowScroll } from '@vueuse/core';
 
 import { useUtils } from '@/composables/useUtils';
 
+const route = useRoute();
+const nowFullPath = ref(route.fullPath);
 const { isMobileWidth } = useUtils();
 const navToggle = ref(false);
 watchEffect(() => {
-	if(!isMobileWidth.value) navToggle.value = false;
+	if(!isMobileWidth.value || route.fullPath !== nowFullPath.value) navToggle.value = false;
 });
 
 const nav = [
@@ -26,7 +28,6 @@ const nav = [
 	},
 ];
 
-const route = useRoute();
 const { y } = useWindowScroll();
 const headerStyleControl = computed(() => {
 	const isScrolled = y.value > 0;
@@ -61,7 +62,6 @@ const headerStyleControl = computed(() => {
 		<router-link
 			to="/"
 			class="header_logoLink"
-			@click="navToggle = false"
 		>	
 			<img
 				v-show="headerStyleControl.isScrolled"
