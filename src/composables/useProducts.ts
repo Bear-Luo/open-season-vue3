@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue';
-import { createGlobalState, useSorted, useTitle } from '@vueuse/core';
+import { createGlobalState, useSorted, useTitle, useDebounceFn } from '@vueuse/core';
 import { apiHandler } from '@/assets/scripts/api-handler';
 import { type Product, type Category } from './types';
 import { useI18n } from 'vue-i18n';
@@ -57,12 +57,16 @@ export const useProducts = createGlobalState(() => {
 	};
 
 	const keyword = ref<string>('');
+	const finalKeyword = ref<string>('');
+	const setFinalKeyword = useDebounceFn(() => {
+		finalKeyword.value = keyword.value;
+	}, 500);
 	const filterProductList = computed<Product[]>(() => {
 		let returnList = activeCategoryIndex.value
 			? productList.value.filter((elm) => elm.category === category.value[activeCategoryIndex.value].text)
 			: productList.value;
 
-		if(keyword.value !== '') {
+		if(finalKeyword.value !== '') {
 			returnList = returnList.filter(elm => elm.title.includes(keyword.value));
 		}
 
@@ -95,7 +99,7 @@ export const useProducts = createGlobalState(() => {
 		loading,
 		productList, getProductList,
 		category, clickCategory,
-		keyword,
+		keyword, setFinalKeyword,
 		sortPrice, changeSortPrice,
 		filterProductList,
 		productPageLoading, getProduct, productPageData,
