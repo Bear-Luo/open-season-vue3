@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useProducts } from '@/composables/useProducts';
 
-const { keyword, sortPrice, changeSortPrice } = useProducts();
+const { keyword, sortPrice, changeSortPrice, setFinalKeyword } = useProducts();
 
 const icon = computed(() => ([
 	{
@@ -22,6 +22,7 @@ const icon = computed(() => ([
 			:placeholder="`${$t('productList.searchPlaceHolder')}`"
 			v-model="keyword"
 			type="text"
+			@input="setFinalKeyword"
 		>
 		<button
 			type="button"
