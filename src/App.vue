@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer/Index.vue';
-import Notification from '@/components/Notification.vue';
+import Notification from '@/components/Utils/Notification.vue';
 
 import { RouterView } from 'vue-router';
 </script>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Loading from '@/components/Loading.vue';
+import Loading from '@/components/Utils/Loading.vue';
 import Index from '@/components/WishList/Index.vue';
 
 import { onMounted, ref } from 'vue';

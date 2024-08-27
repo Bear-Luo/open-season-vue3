@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Loading from '../Loading.vue';
+import Loading from '../Utils/Loading.vue';
 
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
