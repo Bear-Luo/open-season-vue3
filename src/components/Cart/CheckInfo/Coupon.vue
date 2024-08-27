@@ -38,7 +38,7 @@ const { setMessage } = useNotify();
 			<button
 				type="button"
 				class="btn btn-sm btn-info"
-				@click="copy(couponCode);setMessage({ text: $t('cart.copiedCoupon') }) "
+				@click="copy(couponCode);setMessage({ text: $t('cart.copiedCoupon') })"
 			>
 				{{ couponCode }}
 				<font-awesome-icon :icon="['far', 'copy']" />
