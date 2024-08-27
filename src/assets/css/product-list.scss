@@ -105,7 +105,6 @@
 	}
 
 	&_card {
-		cursor: pointer;
 		background-color: #fff;
 		border-radius: 4px;
 		overflow: hidden;
@@ -145,11 +144,15 @@
 		}
 
 		&_img {
-			height: 180px;
-			background-repeat: no-repeat;
-			background-size: cover;
-			background-position: center;
 			position: relative;
+
+			a {
+				height: 180px;
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: center;
+				display: block;
+			}
 
 			+div {
 				padding: 1rem;

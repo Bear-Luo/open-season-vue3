@@ -1,19 +1,9 @@
 <script setup lang="ts">
 import ActionBtn from './ActionBtn.vue';
 
-import { useRouter } from 'vue-router';
-
 import { useProducts } from '@/composables/useProducts';
 
 const { filterProductList } = useProducts();
-
-const router = useRouter();
-const goToProductPage = (id: string) => {
-	router.push({
-		name: 'productPage',
-		params: { id },
-	});
-};
 </script>
 
 <template>
@@ -22,20 +12,25 @@ const goToProductPage = (id: string) => {
 			v-for="item in filterProductList"
 			:key="item.id"
 			class="productList_card_container"
-			@click="goToProductPage(item.id)"
 		>
 			<div class="productList_card">
-				<div
-					:style="{ 'background-image': `url(${item.imageUrl})` }"
-					class="productList_card_img"
-				>
+				<div class="productList_card_img">
+					<router-link
+						:style="{ 'background-image': `url(${item.imageUrl})` }"
+						:to="{ name: 'productPage', params: { id: item.id } }"
+					/>
 					<ActionBtn
 						v-model:id="item.id"
 						v-model:title="item.title"
 					/>
 				</div>
 				<div>
-					<div class="productList_card_title">{{ item.title }}</div>
+					<router-link
+						:to="{ name: 'productPage', params: { id: item.id } }"
+						class="productList_card_title"
+					>
+						{{ item.title }}
+					</router-link>
 					<div class="productList_card_price">
 						<span class="price-origin">{{ item.origin_price }}</span>
 						<span class="price-special">{{ $t('common.dollar', { price: item.price }) }}</span>

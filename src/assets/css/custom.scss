@@ -236,7 +236,7 @@ select, input, textarea {
 // 文字
 @each $key, $value in $colors {
 	.text-#{$key} {
-	  color: $value !important;
+	  	color: $value !important;
 	}
 }
 .text {

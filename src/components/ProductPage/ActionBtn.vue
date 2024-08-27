@@ -11,7 +11,10 @@ const title = defineModel('title', { required: true, type: String, default: '' }
 
 const { wishList, addToWishList, removeWishList } = useWishList();
 const isInWishList = computed<boolean>(() => wishList.value.includes(id.value));
-const heart = computed<string[]>(() => isInWishList.value ? ['fas', 'heart'] : ['far', 'heart']);
+const heartControl = computed(() => ({
+	icon: isInWishList.value ? ['fas', 'heart'] : ['far', 'heart'],
+	text: isInWishList.value ? t('productPage.removeFromWishList') : t('productPage.addToWishList'),
+}));
 
 const { addToCart, useCartLoading, cart } = useCart();
 const purchaseLimit = computed<number>(() => {
@@ -66,8 +69,8 @@ const clickAddToCart = async () => {
 				class="btn btn-danger btn-outline"
 				@click="isInWishList ? removeWishList(`${ id }`) : addToWishList(`${ id }`)"
 			>
-				<font-awesome-icon :icon="heart" />
-				{{ $t('productPage.addToWishList') }}
+				<font-awesome-icon :icon="heartControl.icon" />
+				<span>{{ heartControl.text }}</span>
 			</button>
 			<button
 				:disabled="purchaseLimit === 0"
@@ -84,7 +87,7 @@ const clickAddToCart = async () => {
 					v-else
 					:icon="['fas', 'basket-shopping']"
 				/>
-				{{ $t('productPage.addToCart') }}
+				<span>{{ $t('productPage.addToCart') }}</span>
 			</button>
 		</div>
 	</div>
@@ -114,6 +117,10 @@ const clickAddToCart = async () => {
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
+
+		.btn span {
+			padding-left: 6px;
+		}
 	}
 
 	&_tip {
