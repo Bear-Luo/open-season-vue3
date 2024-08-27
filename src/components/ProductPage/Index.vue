@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ActionBtn from './ActionBtn.vue';
-import Loading from '../Loading.vue';
+import Loading from '../Utils/Loading.vue';
 
 import { computed, ref } from 'vue';
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Loading from '@/components/Loading.vue';
+import Loading from '@/components/Utils/Loading.vue';
 import Form from '@/components/Cart/CheckInfo/Form.vue';
 import CartInfo from '@/components/Cart/CheckInfo/CartInfo.vue';
 

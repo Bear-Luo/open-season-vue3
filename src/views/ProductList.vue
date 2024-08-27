@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Loading from '@/components/Loading.vue';
+import Loading from '@/components/Utils/Loading.vue';
 import Sidebar from '@/components/ProductList/Sidebar.vue';
 import List from '@/components/ProductList/List.vue';
 import Filter from '@/components/ProductList/Filter.vue';
