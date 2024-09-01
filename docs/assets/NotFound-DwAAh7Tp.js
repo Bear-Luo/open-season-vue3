@@ -1,1 +1,0 @@
-import{_ as o}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{b as e,e as n,O as s}from"./@vee-validate-CkcyWT5K.js";const c={},r={class:"text-center",style:{"padding-top":"10vh"}};function a(t,_){return e(),n("div",r,s(t.$t("common.notFoundPage")),1)}const m=o(c,[["render",a]]);export{m as default};

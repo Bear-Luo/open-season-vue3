@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import ShareLink from '@/components/Utils/ShareLink.vue';
+import ShareLink from '@/components/Utils/ShareLink.vue';
 
 import { computed, ref } from 'vue';
 
@@ -27,7 +27,7 @@ const url = `${window.location.origin}/#/product-page/${id.value}`;
 
 <template>
 	<div class="productList_actionBtn">
-		<!--ShareLink :url="url" /-->
+		<ShareLink :url="url" />
 
 		<button
 			:class="{ 'active': isInWishList }"

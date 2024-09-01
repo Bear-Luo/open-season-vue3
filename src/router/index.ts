@@ -2,6 +2,9 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import i18n from '../i18n/index';
 import { useTitle } from '@vueuse/core';
 
+import ProductList from '@/views/ProductList.vue';
+import ProductPage from '@/views/ProductPage.vue';
+
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
 	routes: [
@@ -24,7 +27,7 @@ const router = createRouter({
 		{
 			path: '/product-list',
 			name: 'productList',
-			component: () => import('@/views/ProductList.vue'),
+			component: ProductList,
 			meta: {
 				title: i18n.global.t('header.productList'),
 			},
@@ -33,7 +36,7 @@ const router = createRouter({
 			path: '/product-page/:id',
 			name: 'productPage',
 			props: true,
-			component: () => import('@/views/ProductPage.vue'),
+			component: ProductPage,
 		},
 		{
 			path: '/cart',
