@@ -30,7 +30,13 @@ const copyLink = () => {
 	setMessage({ text: t('common.copySuccess') });
 };
 
-const qrcode = useQRCode(props.url);
+const qrcode = useQRCode(props.url, { 
+	color: {
+		dark: '#ffffff',
+		light: '#97736f',
+	},
+	margin: 1,
+});
 </script>
 
 <template>
@@ -66,7 +72,13 @@ const qrcode = useQRCode(props.url);
 <style lang="scss" scoped>
 .qrcode {
 	width: 160px;
-	margin: 0 auto;
+	margin: 0 auto .875rem;
+	border-radius: 4px;
+	overflow: hidden;
+
+	img {
+		display: block;
+	}
 }
 .url {
 	border: 1px solid #ced4da;
