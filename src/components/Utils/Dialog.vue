@@ -1,30 +1,59 @@
 <script setup lang="ts">
-import Dialog from '../Utils/Dialog.vue';
+import { ref, watchEffect } from 'vue';
 
-const news = defineModel('news', { required: true, type: Object, default: {
-	number: '',
-	id: '',
-	date: '',
-	title: '',
-	content: '',
-} });
+import { useUtils } from '@/composables/useUtils';
+
 const visible = defineModel('visible', { required: true, type: Boolean, default: false });
-const img = defineModel('img', { required: true, type: String, default: '' });
+const title = defineModel('title', { required: true, type: String, default: '' });
+
+const { setBodyLocked } = useUtils();
+const cardVisible = ref(false);
+const clickClose = () => {
+	setBodyLocked(false);
+	cardVisible.value = false;
+	setTimeout(() => {
+		visible.value = false;
+	}, 300);
+};
+watchEffect(() => {
+	if(visible.value) {
+		setBodyLocked(visible.value);
+		setTimeout(() => {
+			cardVisible.value = true;
+		}, 10);
+	}
+});
 </script>
 
 <template>
-	<Dialog
-		v-model:visible="visible"
-		v-model:title="news.title"
-	>
-		<div class="badge-primary">
-			{{ news.date }}
+	<Teleport to="body">
+		<div
+			v-if="visible"
+			class="dialog_mask"
+			@click="clickClose()"
+		>
+			<Transition name="dialog">
+				<div
+					v-if="cardVisible"
+					class="card"
+				>
+					<div class="dialog_top text-right">
+						<button
+							type="button"
+							class="card_btnCrosses"
+							@click="clickClose()"
+						/>
+					</div>
+					<div class="dialog_main">
+						<div class="dialog_title ">
+							{{ title }}
+						</div>
+						<slot></slot>
+					</div>
+				</div>
+			</Transition>
 		</div>
-		<div class="dialog_content">
-			{{ news.content }}
-		</div>
-		<img :src="img">
-	</Dialog>
+	</Teleport>
 </template>
 
 <style lang="scss">
