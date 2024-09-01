@@ -30,7 +30,7 @@ watchEffect(() => {
 		<div
 			v-if="visible"
 			class="dialog_mask"
-			@click="clickClose()"
+			@click.self="clickClose()"
 		>
 			<Transition name="dialog">
 				<div
