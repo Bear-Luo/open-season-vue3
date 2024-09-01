@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import ActionBtn from './ActionBtn.vue';
 import Loading from '../Utils/Loading.vue';
+import ShareLink from '../Utils/ShareLink.vue';
 
 import { computed, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 import { useProducts } from '@/composables/useProducts';
 import { useCart } from '@/composables/useCart';
@@ -40,6 +42,9 @@ const actionBlockShow = computed(() => (
 	Object.keys(productPageData.value).length
 	&& Object.keys(cart.value).length
 ));
+
+const route = useRoute();
+const url = computed(() => `${window.location.origin}/#${route.fullPath}`);
 </script>
 
 <template>
@@ -52,7 +57,13 @@ const actionBlockShow = computed(() => (
 			<img :src="productPageData.imageUrl">
 
 			<div class="productPage_info_main">
-				<div class="productPage_info_title">{{ productPageData.title }}</div>
+				<div class="productPage_info_title">
+					<div>{{ productPageData.title }}</div>
+					<ShareLink
+						:url="url"
+						classStyle="productPage_shareLink"
+					/>
+				</div>
 				<div class="productPage_info_content">
 					<div>{{ productPageData.description }}</div>
 					<div>{{ productPageData.content }}</div>
@@ -155,6 +166,9 @@ const actionBlockShow = computed(() => (
 			color: $primary;
 			margin-bottom: 20px;
 			position: relative;
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
 
 			@include rwd(m) {
 				font-size: 1.5rem;
@@ -185,6 +199,17 @@ const actionBlockShow = computed(() => (
 					padding-bottom: 1rem;
 				}
 			}
+		}
+	}
+
+	&_shareLink {
+		background-color: transparent;
+		color: $quaternary;
+		border: 0;
+		padding: 10px 4px 0;
+
+		@include rwd(m) {
+			padding-top: 4px;
 		}
 	}
 

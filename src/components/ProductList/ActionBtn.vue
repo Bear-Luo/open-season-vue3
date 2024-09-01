@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ShareLink from '@/components/Utils/ShareLink.vue';
+
 import { computed, ref } from 'vue';
 
 import { useWishList } from '@/composables/useWishList';
@@ -19,10 +21,14 @@ const clickCart = async ({ qty, product_id }: { qty: number, product_id: string 
 	await addToCart({ qty, product_id, mode: 'add', title: title.value });
 	loading.value = false;
 };
+
+const url = `${window.location.origin}/#/product-page/${id.value}`;
 </script>
 
 <template>
 	<div class="productList_actionBtn">
+		<ShareLink :url="url" />
+
 		<button
 			:class="{ 'active': isInWishList }"
 			type="button"
@@ -38,7 +44,8 @@ const clickCart = async ({ qty, product_id }: { qty: number, product_id: string 
 		>
 			<font-awesome-icon
 				v-if="loading"
-				:icon="['fas', 'spinner']" spin-pulse
+				:icon="['fas', 'spinner']"
+				spin-pulse
 			/>
 			<font-awesome-icon
 				v-else
