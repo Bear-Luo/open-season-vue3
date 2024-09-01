@@ -9,7 +9,9 @@
 		"openSeason": "角獵咖啡",
 		"notFoundPage": "查無此頁",
 		"purchaseOverLimit": "您購買該商品（{product}）的數量已超過上限，系統將自動調整購買數量以符合上限。",
-		"purchaseReachedLimit": "您購買該商品（{product}）的數量已達上限。"
+		"purchaseReachedLimit": "您購買該商品（{product}）的數量已達上限。",
+		"shareLink": "分享連結",
+		"copySuccess": "複製成功"
 	},
 	"header": {
 		"about": "關於我們",

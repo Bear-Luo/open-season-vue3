@@ -108,10 +108,9 @@ onMounted(() => {
 		</div>
 	</div>
 	<NewsDialog
-		:visible="dialogVisible"
-		:news="dialogNews"
-		:img="dialogImg"
-		@close="setDialogVisible"
+		v-model:visible="dialogVisible"
+		v-model:news="dialogNews"
+		v-model:img="dialogImg"
 	/>
 </template>
 

@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCopy, faHeart as farFaHeart, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
-import { faSpinner, faXmark, faCheck, faHeart, faBasketShopping, faLocationDot, faPhone, faClock, faUpLong, faDownLong, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faXmark, faCheck, faHeart, faBasketShopping, faLocationDot, faPhone, faClock, faUpLong, faDownLong, faCircleExclamation, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import i18n from './i18n/index';
@@ -14,7 +14,7 @@ import router from './router';
 
 const app = createApp(App);
 
-library.add(faCopy, faSpinner, faXmark, faCheck, faHeart, faBasketShopping, faLocationDot, faPhone, faClock, faUpLong, faDownLong, faCircleExclamation, faFacebookF, faInstagram, faQuestionCircle, farFaHeart);
+library.add(faCopy, faSpinner, faXmark, faCheck, faHeart, faBasketShopping, faLocationDot, faPhone, faClock, faUpLong, faDownLong, faCircleExclamation, faFacebookF, faInstagram, faQuestionCircle, farFaHeart, faUpRightFromSquare);
 
 // Make the validat aggressive to show case validators
 configure({
